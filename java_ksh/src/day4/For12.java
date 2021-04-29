@@ -8,7 +8,7 @@ public class For12 {
 		 * *****
 		 * *****
 		 * *****
-		 * *****
+		 * *****ㅇ
 		 * */
 		int i, k;
 		for(k = 1; k <= 5; k += 1) {
@@ -21,3 +21,4 @@ public class For12 {
 	}
 
 }
+ 
