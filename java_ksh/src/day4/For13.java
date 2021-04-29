@@ -7,7 +7,6 @@ public class For13 {
 		 * */
 		int i, j;
 		for(i = 2; i <= 9; i += 1) {
-			// i단 출력
 			for(j = 1; j <= 9; j += 1) {
 				System.out.println(i + " x " + j + " = " + (i * j));
 			}
@@ -16,3 +15,4 @@ public class For13 {
 	}
 
 }
+ 
