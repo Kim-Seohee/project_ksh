@@ -21,7 +21,7 @@ public class Test4_3 {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("정수를 입력하세요: ");
 		int num = scan.nextInt();
-		System.out.print("결과: ");
+		System.out.println("결과: ");
 		scan.close();
 		for(;;) {
 			System.out.print(num % 10);
@@ -32,4 +32,4 @@ public class Test4_3 {
 		}
 	}
 
-}
+} 

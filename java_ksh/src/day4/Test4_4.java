@@ -52,11 +52,11 @@ public class Test4_4 {
 				System.out.println("up");
 			} else if(num == r) {
 				System.out.println("정답입니다.");
-				scan.close();
 				break;
 			}
+			scan.close();
 		}
 				
 	}
 
-}
+} 
