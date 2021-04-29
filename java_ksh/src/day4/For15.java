@@ -14,7 +14,8 @@ public class For15 {
 		 * 따라서 cnt를 초기화시켜줘야 함
 		 * */
 		for(num = 1; num <= 100; num += 1) {
-			for(i = 1, cnt = 0; i <= num; i += 1) {
+			cnt = 0;
+			for(i = 1; i <= num; i += 1) {
 				if(num % i == 0) {
 					cnt += 1;
 				}
@@ -25,4 +26,4 @@ public class For15 {
 		}
 
 	}
-}
+} 
