@@ -14,7 +14,7 @@ public class For14 {
 		int num = 19, i, cnt = 0;
 		for(i = 1; i <= num; i += 1) {
 			if(num % i == 0) {
-				cnt += 1;
+				cnt = cnt + 1;
 			}
 		}
 		
@@ -27,3 +27,4 @@ public class For14 {
 	}
 
 }
+ 
