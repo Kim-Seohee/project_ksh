@@ -13,6 +13,9 @@ public class Dowhile {
 		do {
 			System.out.print("입력(종료하려면 q/Q 입력): ");
 			ch = scan.next().charAt(0);
+			if(ch == 'q' || ch == 'Q') {
+				System.out.println("종료하겠습니다.");
+			}
 		} while (ch != 'q' && ch != 'Q');
 		
 		scan.close();
