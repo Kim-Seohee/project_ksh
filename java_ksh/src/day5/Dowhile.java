@@ -18,7 +18,7 @@ public class Dowhile {
 			}
 		} while (ch != 'q' && ch != 'Q');
 		
-		scan.close();
+		scan.close(); 
 	}
 
 }
