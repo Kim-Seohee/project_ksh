@@ -30,7 +30,7 @@ public class Lotto {
 			win[i] = scan.nextInt();
 		}
 		scan.close();
-		System.out.println(sameNumCount(user, win));
+//		System.out.println(sameNumCount(user, win));
 		System.out.println(winner(user, win)); // 에러남, 고쳐보기
 	}
 	public static boolean contains(int []arr, int count, int num) {
@@ -71,7 +71,7 @@ public class Lotto {
 	
 	// 보너스 번호가 일치하는지 여부
 	public static boolean bonus(int []arr1, int []arr2) {
-		if(contains(arr1, arr1.length, arr2[7])) {
+		if(contains(arr1, arr1.length, arr2[6])) {
 			return true;
 		}
 		return false;
