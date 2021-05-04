@@ -69,7 +69,7 @@ public class Lotto {
 		return cnt;
 	}
 	
-	// 보너스 번호가 일치하는지 여부
+	// 보너스 번호가 일치하는지 여부를 알려주는 메소드
 	public static boolean bonus(int []arr1, int []arr2) {
 		if(contains(arr1, arr1.length, arr2[6])) {
 			return true;
@@ -77,6 +77,7 @@ public class Lotto {
 		return false;
 	}
 	
+	// 등수와 꽝을 알려주는 메소드
 	public static String winner(int []arr1, int []arr2) {
 		if(sameNumCount(arr1, arr2) == 6) {
 			return "1등";
