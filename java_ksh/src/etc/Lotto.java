@@ -31,7 +31,7 @@ public class Lotto {
 		}
 		scan.close();
 //		System.out.println(sameNumCount(user, win));
-		System.out.println(winner(user, win)); // 에러남, 고쳐보기
+		System.out.println(winner(user, win));
 	}
 	public static boolean contains(int []arr, int count, int num) {
 		for(int i = 0; i < count; i += 1) {
