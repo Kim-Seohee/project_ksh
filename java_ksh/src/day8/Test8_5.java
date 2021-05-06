@@ -52,7 +52,7 @@ public class Test8_5 {
 			System.out.print(tmp + " ");
 		}*/
 		
-		/* 5개짜리 배열에 저장된 숫자들 중 연속된 숫자가 3개인지 아닌지 확인하는 코드를 작성하세요
+		/* 5개짜리 배열에 저장된 숫자들 중 연속된 숫자가 3개 이상인지 아닌지 확인하는 코드를 작성하세요
 		 * 단 숫자들은 정렬되었다고 가정
 		 * 예시
 		 * 입력: 1 1 2 3 4
@@ -87,7 +87,7 @@ public class Test8_5 {
 		if(count == 3) {
 			System.out.println("연속");
 		}
-		// count가 3이면 연속 아님이라고 출력
+		// count가 3이 아니면 연속 아님이라고 출력
 		else {
 			System.out.println("연속 아님");
 		}
