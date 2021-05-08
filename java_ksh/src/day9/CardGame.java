@@ -424,7 +424,7 @@ public class CardGame {
 		}
 		return 0;
 	}
-	/* public static int straight(int []card) {  // 1 2 2 3 4 5 6 같은 경우 판별하지 못하는 코드
+	/* public static int straight(int []card) {  // 1 2 2 3 3 4 5 같은 경우 판별하지 못하는 코드
 		int count = 1;
 		int num = 0;
 		for(int i = 0; i < card.length - 1; i += 1) {
