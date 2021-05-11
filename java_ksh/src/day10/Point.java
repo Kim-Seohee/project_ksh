@@ -49,4 +49,9 @@ public class Point {
 	public Point() { // 생성자가 존재하면 기본 생성자는 자동으로 만들어지지 않음, 추가해줘야 함
 		// 어차피 0으로 초기화되기 때문에 아무것도 적지 않았음
 	}
+	//복사 생성자
+	public Point(Point pt) {
+		x = pt.x;
+		y = pt.y;
+	}
 }
