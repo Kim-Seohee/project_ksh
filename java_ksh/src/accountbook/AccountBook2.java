@@ -26,6 +26,5 @@ public class AccountBook2 {
 		System.out.println("날짜를 입력하세요: ");
 		String date = scan.next();
 		System.out.println("결제 타입을 입력하세요: ");
-		String 
 	}
 }
