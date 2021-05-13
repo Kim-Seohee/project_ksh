@@ -46,6 +46,7 @@ class Parent{
 	public final void menu() {
 		System.out.println("메뉴입니다.");
 	}
+	
 }
 class Child extends Parent {
 	public int num4;
