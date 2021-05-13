@@ -18,3 +18,10 @@ class P{
 class C extends P{
 	
 }
+class D{
+	public void print(){}
+	public void print(int num){}
+	/* public void print(){ // 중복된 메소드명 오류
+		int num = 0;
+	} */
+}
