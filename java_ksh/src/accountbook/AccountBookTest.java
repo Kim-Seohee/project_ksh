@@ -1,5 +1,7 @@
 package accountbook;
 
+import java.util.Scanner;
+
 public class AccountBookTest {
 
 	public static void main(String[] args) {
@@ -11,15 +13,33 @@ public class AccountBookTest {
 		 * 금액: 
 		 * 내용: 
 		 * */
-		// 가계부: 자산 내역이 필요
-		// 소득과 지출을 기록
-		// 소득과 지출에는 날짜, 금액, 사용처, 형태(현금, 카드), 카테고리(취미, 생활, 교통 등), 내용 등의 변수가 필요함
-		// 가계부에 지출이나 수입 내역을 입력하기, 수정하기, 삭제하기, 총 지출액이나 수입액 보기, 자산 확인, 카테고리별 확인 등의 기능이 있으면 좋겠음
-		// 가계부에 지출이나, 수입을 저장하는 배열을 만들고 거기에 지출이나 소득을 저장
-		// 지출은 돈의 흐름이다. 수입은 돈의 흐름이다. 돈의 흐름이라는 부모 클래스를 만들기
-		
-		
-		
+		AccountBookProgram2 abp = new AccountBookProgram2();
+		int menu = 0;
+		int subMenu = 0;
+		Scanner scan = new Scanner(System.in);
+		do {
+			abp.menu();
+			menu = scan.nextInt();
+			switch(menu) {
+			case 1: abp.insert(); break;
+			case 2: abp.scanUpdate(); break;
+			case 3: abp.scanDelete(); break;
+			case 4:
+				abp.submenu();
+				subMenu = scan.nextInt();
+				switch(subMenu) {
+				case 1: abp.printItemListDetail(); break;
+				case 2: abp.printItemSimple(); break;
+				case 3: abp.scanPrintItem(); break;
+				case 4: abp.asset(); break;
+				default: System.out.println("잘못된 메뉴");
+				}
+				break;
+			case 5: System.out.println("종료합니다."); break;
+			default: System.out.println("잘못된 메뉴");
+			}
+		} while(menu != 5);
+		scan.close();
 	}
 
 }

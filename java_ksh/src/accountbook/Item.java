@@ -42,6 +42,17 @@ public class Item {
 	public int getCost() {
 		return cost;
 	}
+	// 추가: 스위치문에서는 문자열 비교가 된다!
+	public int calCost() {
+		switch(type) {
+		case "지출":
+			return -cost;
+		case "수입":
+			return cost;
+		default: 
+			return 0;
+		}
+	}
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
