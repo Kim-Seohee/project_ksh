@@ -7,7 +7,7 @@ public class MethodTest {
 		int res = sum(1, 2); // 메소드의 리턴값은 메소드를 호출한 위치로 간다.
 		System.out.println(res);
 		// System.out.println(print()); // 잘못된 경우
-		// int num = print(); // 잘못된 경우
+		int num = print(); // 잘못된 경우
 		int []arr = new int[] {1, 2, 3, 4, 5};
 		System.out.println(sum2(arr));
 		System.out.println(sum3(1, 2, 3));
@@ -18,7 +18,7 @@ public class MethodTest {
 		return num1 + num2;
 	}
 	public static void print() {
-		System.out.println("Hello");
+		System.out.println(1);
 	}
 	public static int sum2(int []arr) {
 		if(arr == null) { // 확인 필요
