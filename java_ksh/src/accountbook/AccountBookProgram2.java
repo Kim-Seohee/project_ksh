@@ -16,7 +16,7 @@ public class AccountBookProgram2 {
 		System.out.println("4. 가계부 확인");
 		System.out.println("5. 종료");
 		System.out.println("-------------");
-		System.out.println("메뉴 선택: ");
+		System.out.print("메뉴 선택: ");
 	}
 	public void submenu() {
 		System.out.println("-----확인-----");
