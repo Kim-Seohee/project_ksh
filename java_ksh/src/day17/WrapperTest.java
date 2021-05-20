@@ -21,6 +21,9 @@ public class WrapperTest {
 		String str = "1234";
 		num2 = Integer.parseInt(str); // NumberFormat 예외가 발생할 수 있다.
 		System.out.println(num2);
+		String str2 = "12.5";
+		double db = Double.parseDouble(str2);
+		System.out.println(db);
 	}
 
 }
