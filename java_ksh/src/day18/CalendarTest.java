@@ -22,6 +22,7 @@ public class CalendarTest {
 		}
 		System.out.println(year + "년 " + month + "월 " + day + "일 " + weekStr + "요일");
 		int amPm = now.get(Calendar.AM_PM); // 오전인지 오후인지 확인
+		System.out.println(amPm);
 		String amPmStr = amPm == Calendar.AM ? "오전" : "오후";
 		int hour = now.get(Calendar.HOUR);
 		int minute = now.get(Calendar.MINUTE);
