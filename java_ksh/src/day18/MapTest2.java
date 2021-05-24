@@ -68,6 +68,7 @@ public class MapTest2 {
 				info.put(id, pw);
 				System.out.println("회원가입되었습니다.");
 				break;
+			// 로그인 기능
 			case 2 :
 				System.out.println("로그인");
 				// 아이디 입력
@@ -91,6 +92,9 @@ public class MapTest2 {
 				break;
 			case 3 :
 				System.out.println("종료합니다.");
+				break;
+			default :
+				System.out.println("잘못된 메뉴입니다.");
 			}
 			
 		}while(menu != 3);
