@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우선순위</title>
+    <style>
+        /* 
+        - 하나의 요소에 동일한 속성이 여러 개 있다면 우선 순위에 따라 적용되는 부분이 달라짐
+            - 선택자에 마우스 올리고 있으면 점수가 뜬다.
+            - *(전체 선택자)는 0점으로 계산
+            - 태그 1개당 1점, 클래스 1개당 10점, 아이디당 100점으로 계산 후 점수가 높은 곳의 속성값을 적용
+            - 단, 값이 같으면 위치상 아래에 위치한 코드가 실행
+        - !important는 우선순위를 무시하고 무조건 적용할 때 사용, 꼭 필요한 경우만 사용
+        - 요소들은 부모 요소에게 속성들을 상속을 받음
+        */
+        body{
+            color: red;
+        }
+        .box{
+            font-size: 50px;
+        }
+        body div{
+            font-size: 10px !important;
+        }
+        /* .box와 우선순위가 같은데 위치상 아래에 있기 때문에 아래에 있는 코드가 실행된다. */
+        .box1{
+            font-size: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box box1">안녕</div>
+    <!-- a태그에는 색상이 지정되어 있기 때문에 body태그의 색상 속성을 물려받지 않음 -->
+    <a href="#">안녕</a>
+</body>
+</html>
