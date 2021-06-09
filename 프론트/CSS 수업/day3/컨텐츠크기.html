@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컨텐츠 크기 예제</title>
+    <style>
+        /*
+        - width와 height는 box-sizing 속성의 값에 따라 의미가 달라진다.
+        - box-sizing
+            - content-box: 기본 값, width는 컨텐츠의 가로
+            - border-box: width는 컨텐츠의 가로+왼쪽패딩+오른쪽패딩+왼쪽테두리굵기+오른쪽테두리굵기의 값이다.
+        */
+        .box1{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            padding: 10px;
+            border: 2px solid black;
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            padding: 10px;
+            border: 2px solid black;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+</body>
+</html>
