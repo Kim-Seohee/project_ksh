@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 박스가 오른쪽으로 이동했다가 원래 위치로 돌아오는 애니메이션을 만드세요. 무한 반복 */
+        .box{
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+            animation: move1 infinite 1s;
+        }
+        .box2{
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+        }
+        /* move1과 move2의 동작 방식이 다르다(애니메이션을 안 준 box2와 비교해보면 알 수 있다.) */
+        @keyframes move1{
+            0%{margin-left: 0px;}
+            50%{margin-left: 300px;}
+            100%{margin-left: 0px;}
+        }
+        @keyframes move2{
+            0%{left: 0px;}
+            50%{left: 300px;}
+            100%{left: 0px;}
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box2"></div>
+</body>
+</html>

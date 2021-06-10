@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리스트 메뉴 예제</title>
+    <style>
+        /*
+        - 메뉴를 꼭 리스트 태그를 이용하지 않아도 됨, 하지만 일반적으로 메뉴는 상위메뉴,
+          하위메뉴로 구성되어 있기 때문에 리스트 태그로 많이 작업한다.
+          1. 마커 제거
+          2. 패딩 제거
+          3. li 태그들을 한줄로 나열
+          4. 크기를 조절하여 딱 맞게
+        */
+        *{
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        ul.menu{
+            list-style-type: none;
+            list-style-position: inside;
+            padding: 0;
+        }
+        ul.menu::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .menu>li{
+            /* display: inline-block보다 float을 이용하는 것이 좋다 */
+            float: left;
+            width: calc(100% / 3);
+            text-align: center;
+            height: 100px;
+            line-height: 100px;
+            background-color: paleturquoise;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+        /* 겹치는 선 없애주기 */
+        .menu>li:nth-child(1), .menu>li:nth-child(2){
+            border-right: none;
+        }
+        /* a태그의 동작 영역 넓혀주기 */
+        .menu>li>a{
+            display: block;
+            height: 100%;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <ul class="menu">
+        <li><a href="#1">메뉴1</a></li>
+        <li><a href="#2">메뉴2</a></li>
+        <li><a href="#3">메뉴3</a></li>
+    </ul>
+</body>
+</html>
