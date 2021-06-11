@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이콘(나)</title>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            font-size: 30px;
+            text-decoration: none;
+            color: deepskyblue;
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        .menu{
+            border: 1px solid red;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .menu::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        li{
+            float: left;
+        }
+        .menu1{
+            width: calc(100% - 50px);
+            box-sizing: border-box;
+        }
+        .menu2{
+            width: 50px;
+            height: 50px;
+            border: 1px solid deepskyblue;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul class="menu">
+            <li class="menu1"><a href="#1"></a></li>
+            <li class="menu2"><a href="#2"><i class="fas fa-bars"></i></a></li>
+        </ul>
+    </nav>
+</body>
+</html>

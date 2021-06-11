@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 50px;
+        }
+        .top-menu{
+            height: 50px;
+            border: 1px solid red;
+            position: relative;
+        }
+        .top-menu>.fa-bars{
+            display: block;
+            width: 50px;
+            height: 50px;
+            border: 1px solid red;
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            cursor: pointer;
+            font-size: 35px;
+            text-align: center;
+            line-height: 50px;
+        }
+        .top-menu>.fa-bars:hover{
+            border-color: blue;
+        }
+        .menu{
+            padding: 0;
+            list-style: none;
+        }
+        .menu>li{
+            width: 300px;
+            border: 1px solid red;
+            border-top: none;
+            height: 50px;
+        }
+        @media screen and (min-width:640px){
+            .top-menu{
+                display: none;
+            }
+            .menu::after{
+                content: '';
+                display: block;
+                clear: both;
+            }
+            .menu>li{
+                border-top: 1px solid red;
+                width: calc(100% / 3);
+                float: left;
+                box-sizing: border-box;
+            }
+            .menu>li:nth-child(1), .menu>li:nth-child(2){
+                border-right: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-menu">
+        <i class="fas fa-bars"></i>
+    </nav>
+    <nav class="nav">
+        <ul class="menu">
+            <li><a href="#1">메뉴1</a></li>
+            <li><a href="#2">메뉴2</a></li>
+            <li><a href="#3">메뉴3</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

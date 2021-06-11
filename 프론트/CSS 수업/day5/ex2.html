@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>삼등분</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            display: flex;
+            height: 100vh;
+        }
+        .box>div{
+            border: 1px solid black;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .box>div:nth-child(1), .box>div:nth-child(2){
+            border-right: none;
+        }
+        .box1{
+            background-color: rosybrown;
+        }
+        .box2{
+            background-color: royalblue;
+        }
+        .box3{
+            background-color: thistle;
+        }
+        @media screen and (max-width:640px) {
+            .box{
+                display: block;
+                width: 100vw;
+                height: 100vw;
+            }
+            .box>div{
+                height: calc(100vh / 3);
+            }
+            .box>div:nth-child(1), .box>div:nth-child(2){
+                border-right: 1px solid black;;
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+    </div>
+</body>
+</html>
