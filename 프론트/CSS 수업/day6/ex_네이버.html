@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>네이버 구조 예제</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+	<style>
+		* { padding: 0; margin: 0; }
+		ul,ol { list-style: none;}
+		a { text-decoration: none; color: #000;}
+
+		.container{ width: 1190px; margin: 0 auto;}
+		.box1{ box-sizing: border-box; height: 49px; border: 1px solid red;}
+		.box2{ height: 160px; position: relative;}
+		.box3{ 
+			box-sizing: border-box; height: 52px; border-top: 1px solid #e4e8eb; 
+			min-width: 1190px; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+		}		
+		.box4{ 
+			box-sizing: border-box; height: 1000px; 
+			padding: 20px 30px;
+		}
+		.box5{ box-sizing: border-box; height: 423px; border: 1px solid violet;}
+
+		.logo-box{
+			width: 222px; height: 52px; box-sizing: border-box; border: 1px solid red;
+			position: absolute; top: calc(50% - 26px); left: 0;
+		}
+		.search-box{ 
+			width: 586px; height: 56px; box-sizing: border-box; border: 2px solid #19ce60;
+			position: absolute; top: 50%; left: 268px; margin-top: -28px;
+		}
+		/* 
+		- 자식의 position이 absolute이고, 부모의 position이 absolute이면 자식은 부모를
+		  기준으로 잡는다.
+		*/
+		.search-btn{
+			width: 56px; height: 56px; border: none; background-color: #19ce60;
+			position: absolute; right: -2px; top: -2px;
+		}
+		.search-input{
+			display: block; padding: 14px 15px; width: 444px; height: 24px; line-height: 24px;
+			border: none;
+		}
+		.search-input:focus{ border: none; outline: none;}
+		.menu{
+			height: 100%; box-sizing: border-box; border: 1px solid blue;
+		}
+		.box4-inner{
+			height: 100%;
+		}
+		.left-box{
+			width: 750px; height: 100%; border: 1px solid red; float: left;
+			box-sizing: border-box;
+		}
+		.right-box{
+			width: 350px; height: 100%; border: 1px solid orange; float: right;
+			box-sizing: border-box;
+		}
+		.after::after{
+			clear: both; display: block; content: '';
+		}
+		.left1, .right1{
+			height: 135px; border: 1px solid green; box-sizing: border-box;
+			margin-bottom: 12px;
+		}
+		.left2{
+			height: 367px; background: yellow;
+		}
+		.right2{
+			height: 49px; border: 1px solid skyblue; box-sizing: border-box;
+			position: relative;
+		}
+		.left2-1{
+			height: 49px; background-color: violet;
+		}
+		.left2-2{
+			height: 56px; background-color: gray;
+		}
+		.left2-3{
+			height: 262px; border: 1px solid black /*#dae1e6*/;
+			box-sizing: border-box; position: relative;
+		}
+		.left2-3>.row{
+			display: flex;
+		}
+		.left2-3>.row>.col{
+			height: 65px; width: 100%;
+		}
+		.bar{
+			background-color: #dae1e6;
+		}
+		.bar.top1{
+			position: absolute; left: 0; right: 0; top: 65px; height: 1px; 
+		}
+		.bar.top2{
+			position: absolute; left: 0; right: 0; top: 130px; height: 1px; 
+		}
+		.bar.top3{
+			position: absolute; left: 0; right: 0; top: 195px; height: 1px; 
+		}
+		.bar.bar-right1{
+			position: absolute; top: 0; bottom: 0; left: 124px; width: 1px;
+		}
+		.bar.bar-right2{
+			position: absolute; top: 0; bottom: 0; left: 248px; width: 1px; 
+		}
+		.bar.bar-right3{
+			position: absolute; top: 0; bottom: 0; left: 372px; width: 1px; 
+		}
+		.bar.bar-right4{
+			position: absolute; top: 0; bottom: 0; left: 497px; width: 1px; 
+		}
+		.bar.bar-right5{
+			position: absolute; top: 0; bottom: 0; left: 622px; width: 1px; 
+		}
+		.col>.col1{
+			width: 100%; height: 100%; background-color: #fff;
+		}
+		.col>.col2{
+			width: 100%; height: 100%; background-color: #f7f9fa;
+			display: none;
+		}
+		.col:hover>.col1{
+			display: none;
+		}
+		.col:hover>.col2{
+			display: block;
+		}
+		.right2 .btn-box{
+			position: absolute; top: 11px; right: 10px;
+		}
+		.right2 .btn-box .prev-btn, 
+		.right2 .btn-box .next-btn{
+			float: left; width: 24px; height: 24px; border: 1px solid #e4e8eb;
+			box-sizing: border-box; text-align: center; line-height: 22px; font-size: 12px;
+			cursor: pointer;
+		}
+		.right2 .btn-box .next-btn{
+			margin-left: -1px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box1 container"></div>
+	<div class="box2 container">
+		<div class="logo-box"></div>
+		<div class="search-box">
+			<form action="">
+				<input type="text" class="search-input">
+				<button type="submit" class="search-btn"></button>
+			</form>
+		</div>
+	</div>
+	<div class="box3">
+		<div class="menu container"></div>
+	</div>
+	<div class="box4 container">
+		<div class="box4-inner after">
+			<div class="left-box">
+				<div class="left1"></div>
+				<div class="left2">
+					<div class="left2-1"></div>
+					<div class="left2-2"></div>
+					<div class="left2-3">
+						<div class="bar-list">
+							<div class="bar top1"></div>
+							<div class="bar top2"></div>
+							<div class="bar top3"></div>
+							<div class="bar bar-right1"></div>
+							<div class="bar bar-right2"></div>
+							<div class="bar bar-right3"></div>
+							<div class="bar bar-right4"></div>
+							<div class="bar bar-right5"></div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+							<div class="col">
+								<div class="col1"></div>
+								<div class="col2"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="right-box">
+				<div class="right1"></div>
+				<div class="right2">
+					<div class="btn-box">
+						<div class="prev-btn"><i class="fas fa-chevron-left"></i></div>
+						<div class="next-btn"><i class="fas fa-chevron-right"></i></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="box5 container"></div>
+</body>
+</html>
