@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .right1{
+      width: 350px;
+      height: 135px; border: 1px solid green; box-sizing: border-box;
+			margin-bottom: 12px;
+      position: relative;
+    }
+    .right1>.inner-box{
+      position: absolute;
+      top: 16px;
+      left: 17px;
+      bottom: 12px;
+      right: 16px;
+      border: 1px solid red;
+      box-sizing: border-box;
+    }
+    .right1 .top{
+      position: absolute;
+      top: 0;
+      height: 16px;
+      left: 0;
+      right: 0;
+      border: 1px solid blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="right1">
+    <div class="inner-box">
+      <div class="top"></div>
+      <a href="#1"></a>
+    </div>
+  </div>
+</body>
+</html>

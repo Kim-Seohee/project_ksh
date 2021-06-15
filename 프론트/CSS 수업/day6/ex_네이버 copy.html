@@ -213,7 +213,6 @@
 		.right4-bot1{
 			height: 70px;
 			background-color: #f7f9fa;
-			border-bottom: 1px solid #e4e8eb;
 			padding: 12px 4px 11px 10px;
 			box-sizing: border-box;
 		}
@@ -229,34 +228,31 @@
 			height: 274px;
 			background-color: whitesmoke;
 		}
-		.mall-link{
-			float: left;
+		.bot1-inner-top{
+			text-align: center;
 			height: 23px;
 			line-height: 23px;
-			font-size: 12px;
+			font-size: 13px;
 		}
-		.mall-link:hover{
-			text-decoration: underline;
+		.bot1-inner-bottom{
+			text-align: center;
+			height: 23px;
+			line-height: 23px;
+			font-size: 13px;
 		}
-		.point1, .point2{
+		.bot1-inner a::before{
+			content: '';
+			display: inline-block;
 			width: 2px;
 			height: 2px;
-			background-color: #c9cccf;
 			border-radius: 50%;
-			float: left;
+			background-color: black;
 			position: relative;
-			margin: 10px 10px 0 10px;
+			margin-right: 5px;
+			top: -2px;
 		}
-		.point2{
-			margin: 10px 6px 0 6px;
-		}
-		.bold{
-			font-weight: bold;
-		}
-		.mall-list::after{
-			content: '';
-			display: block;
-			clear: both;
+		.bot1-inner a:first-child::before{
+			display: none;
 		}
 	</style>
 </head>
@@ -422,32 +418,23 @@
 					<div class="right4-top-box"></div>
 					<div class="right4-bot-box">
 						<div class="right4-bot1">
-							<div class="mall-list">
-								<a href="#" class="mall-link bold">G마켓</a>
-								<span class="point1"></span>
-								<a href="#" class="mall-link">옥션</a>
-								<span class="point1"></span>
-								<a href="#" class="mall-link bold">11번가</a>
-								<span class="point1"></span>
-								<a href="#" class="mall-link">이마트몰</a>
-								<span class="point1"></span>
-								<a href="#" class="mall-link">티몬</a>
-								<span class="point1"></span>
-								<a href="#" class="mall-link">위메프</a>
-							</div>
-							<div class="mall-list">
-								<a href="#" class="mall-link">쿠팡</a>
-								<span class="point2"></span>
-								<a href="#" class="mall-link bold">신세계몰</a>
-								<span class="point2"></span>
-								<a href="#" class="mall-link">올리브영</a>
-								<span class="point2"></span>
-								<a href="#" class="mall-link">GS샵</a>
-								<span class="point2"></span>
-								<a href="#" class="mall-link bold">롯데i몰</a>
-								<span class="point2"></span>
-								<a href="#" class="mall-link">CJ온스타일</a>
-								<span class="point2"></span>
+							<div class="bot1-inner">
+								<div class="bot1-inner-top">
+									<a href="#">G마켓</a>
+									<a href="#">옥션</a>
+									<a href="#">11번가</a>
+									<a href="#">이마트몰</a>
+									<a href="#">티몬</a>
+									<a href="#">위메프</a>
+								</div>
+								<div class="bot1-inner-bottom">
+									<a href="#">쿠팡</a>
+									<a href="#">신세계몰</a>
+									<a href="#">올리브영</a>
+									<a href="#">GS샵</a>
+									<a href="#">롯데몰</a>
+									<a href="#">CJ온스타일</a>
+								</div>
 							</div>
 						</div>
 						<div class="right4-bot2"></div>
