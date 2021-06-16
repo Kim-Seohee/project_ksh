@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 연습</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul, ol{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+
+        .container{
+            width: 1190px;
+            margin: 0 auto;
+        }
+        .box1{
+            box-sizing: border-box;
+            height: 52px;
+            border: 1px solid red;
+        }
+        .box2{
+            height: 160px;
+            position: relative;
+        }
+        .box3{
+            box-sizing: border-box;
+            height: 52px;
+            border-top: 1px solid #e4e8eb;
+            min-width: 1190px;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+        }
+        .box4{
+            padding: 20px 30px;
+        }
+        .box5{
+            box-sizing: border-box;
+            height: 423px;
+            border: 1px solid violet;
+        }
+        .logo-box{
+            width: 222px;
+            height: 52px;
+            box-sizing: border-box;
+            border: 1px solid red;
+            position: absolute;
+            top: calc(50% - 26px);
+            left: 0;
+        }
+        .search-box{
+            width: 586px;
+            height: 56px;
+            box-sizing: border-box;
+            border: 2px solid #19ce60;
+            position: absolute;
+            top: 50%;
+            left: 268px;
+            margin-top: -28px;
+        }
+        .search-btn{
+            width: 56px;
+            height: 56px;
+            border: none;
+            background-color: #19ce60;
+            position: absolute;
+            right: -2px;
+            top: -2px;
+        }
+        .search-input{
+            display: block;
+            padding: 14px 15px;
+            width: 444px;
+            height: 24px;
+            line-height: 24px;
+            border: none;
+        }
+        .search-input:focus{
+            border: none;
+            outline: none;
+        }
+        .menu{
+            height: 100%;
+            box-sizing: border-box;
+            border: 1px solid blue;
+        }
+        .box4-inner{
+            height: 100%;
+        }
+        .left-box{
+            width: 750px;
+            height: 100%;
+            border: 1px solid red;
+            float: left;
+            box-sizing: border-box;
+        }
+        .right-box{
+            width: 350px;
+            float: right;
+        }
+        .after::after{
+            clear: both;
+            content: '';
+            display: block;
+        }
+        .left1, .right1{
+            height: 135px;
+            border: 1px solid green;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+        .right1{
+            padding: 16px 16px 12px 17px;
+            background-color: #f7f9fa;
+            border: 1px solid #dae1e6;
+        }
+        .left2{
+            height: 267px;
+            background-color: yellow;
+        }
+        .right2{
+            height: 49px;
+            border: 1px solid skyblue;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .left2-1{
+            height: 49px;
+            background-color: violet;
+        }
+        .left2-2{
+            height: 56px;
+            background-color: gray;
+        }
+        .left2-3{
+            height: 262px;
+            border: 1px solid #dae1e6;
+            box-sizing: border-box;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1 container"></div>
+    <div class="box2 container">
+        <div class="logo-box"></div>
+        <div class="search-box">
+            <form action="">
+                <input type="text" class="search-input">
+                <button type="submit" class="search-btn"></button>
+            </form>
+        </div>
+    </div>
+    <div class="box3">
+        <div class="menu container"></div>
+    </div>
+    <div class="box4 container">
+        <div class="box4-inner after">
+            <div class="left-box">
+                <div class="left1"></div>
+                <div class="left2">
+                    <div class="left2-1"></div>
+                    <div class="left2-2"></div>
+                    <div class="left2-3">
+                        <div class="bar-list">
+                            <div class="bar top1"></div>
+                            <div class="bar top2"></div>
+                            <div class="bar top3"></div>
+                            <div class="bar bar-right1"></div>
+                            <div class="bar bar-right2"></div>
+                            <div class="bar bar-right3"></div>
+                            <div class="bar bar-right4"></div>
+                            <div class="bar bar-right5"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                            <div class="col">
+                                <div class="col1"></div>
+                                <div class="col2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-box">
+                <div class="right1"></div>
+                <div class="right2"></div>
+                <div class="right3"></div>
+                <div class="right4"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
