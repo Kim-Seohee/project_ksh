@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rolling 예제 2</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        var mt = -50;
+        $(function(){
+            setInterval(function(){
+                $('.box:first-child').animate({'margin-top': mt + 'px'}, 1200) // 첫번째 요소에만 애니메이션을 적용해야 함
+                mt -= 50;
+                mt = mt == -450? 0 : mt;
+            }, 2000)
+
+        });
+    </script>
+    <style>
+        .view{
+            width: 400px;
+            height: 50px;
+            border: 2px solid black;
+            overflow: hidden;
+        }
+        .box{
+            text-align: center;
+            width: 400px;
+            height: 50px;
+            line-height: 50px;
+            background-color: paleturquoise;
+            font-size: 30px;
+        }
+        .box:nth-child(2n){
+            background-color: whitesmoke;
+        }
+    </style>
+</head>
+<body>
+    <div class="view">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
+    </div>
+</body>
+</html>
