@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더보기 예제</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('#btn1').on('click', function(){
+                $('.blue-box').show();
+                $(this).hide();
+                $('#btn2').show();
+            });
+            $('#btn2').on('click', function(){
+                $('.blue-box').hide();
+                $('#btn1').show();
+                $(this).hide();
+            });
+        });
+    </script>
+    <style>
+        #btn2{
+            display: none;
+        }
+        .container{
+            position: relative;
+        }
+        .red-box{
+            height: 50px;
+            background-color: red;
+        }
+        .green-box{
+            height: 400px;
+            background-color: green;
+        }
+        .blue-box{
+            height: 300px;
+            background-color: blue;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn1">더보기</button>
+    <button id="btn2">접 기</button>
+    <div class="container">
+        <div class="red-box"></div>
+        <div class="green-box"></div>
+        <div class="blue-box"></div>
+    </div>
+</body>
+</html>
