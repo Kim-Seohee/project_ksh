@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴선택2</title>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.next-btn').click(function(){
+                if($('.selected').attr('data') != '.menu4')
+                    $('.selected').removeClass('selected').next().addClass('selected').click(); // 체이닝
+            });
+            $('.prev-btn').click(function(){
+                if($('.selected').attr('data') != '.menu1')
+                    $('.selected').removeClass('selected').prev().addClass('selected').click();
+            });
+            $('.menu-list').click(function(){
+                var data = $(this).attr('data');
+                $('.menu-list').removeClass('selected');
+                $(this).addClass('selected');
+                $('.contents div').hide();
+                $(data).show();
+            });
+        });
+    </script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            color: #000;
+        }
+        .box{
+            margin: 0 20px;
+            position: relative;
+        }
+        .menu-box{
+            border: 1px solid black;
+            height: 50px;
+        }
+        .menu{
+            display: flex;
+        }
+        .menu-list{
+            border-right: 1px solid black;
+            width: 100%;
+            height: 50px;
+        }
+        .menu-list:last-child{
+            border-right: none;
+        }
+        .menu-link{
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        .prev-btn{
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border: 1px solid black;
+            top: 9px;
+            left: 0;
+            margin-left: -15px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-align: center;
+            line-height: 30px;
+        }
+        .next-btn{
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border: 1px solid black;
+            top: 9px;
+            right: 0;
+            margin-right: -15px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-align: center;
+            line-height: 30px;
+        }
+        .selected{
+            background-color: orchid;
+        }
+        .contents div{
+            height: 300px;
+            margin: 0px 20px 10px 20px;
+        }
+        .menu1{
+            background-color: pink;
+        }
+        .menu2{
+            background-color: powderblue;
+            display: none;
+        }
+        .menu3{
+            background-color: lightsteelblue;
+            display: none;
+        }
+        .menu4{
+            background-color: lightyellow;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="menu-box">
+            <ul class="menu">
+                <li class="menu-list selected" data=".menu1"><a href="#" class="menu-link">메뉴1</a></li>
+                <li class="menu-list" data=".menu2"><a href="#" class="menu-link">메뉴2</a></li>
+                <li class="menu-list" data=".menu3"><a href="#" class="menu-link">메뉴3</a></li>
+                <li class="menu-list" data=".menu4"><a href="#" class="menu-link">메뉴4</a></li>
+            </ul>
+        </div>
+        <div class="btn-box">
+            <div class="prev-btn"><i class="fas fa-chevron-left"></i></div>
+            <div class="next-btn"><i class="fas fa-chevron-right"></i></div>
+        </div>
+    </div>
+    <div class="contents">
+        <div class="menu1"></div>
+        <div class="menu2"></div>
+        <div class="menu3"></div>
+        <div class="menu4"></div>
+    </div>
+</body>
+</html>

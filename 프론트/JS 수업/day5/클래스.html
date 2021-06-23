@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클래스 관련 메소드</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            /*
+            - addClass('클래스1 클래스2'): 클래스1과 클래스2를 추가
+            - removeClass('클래스1 클래스2'): 클래스1과 클래스2를 제거
+            - toggleClass('클래스1 클래스2'): 클래스 1이 있으면 제거, 없으면 추가/클래스 2가 있으면 제거, 없으면 추가
+            - hasClass('클래스'): 해당 클래스가 있으면 true, 없으면 false
+            */
+
+            $('.box1').addClass('box4');
+            $('.box2').removeClass('box2');
+            $('.box3').toggleClass('box5'); // 추가
+            $('.box3').toggleClass('box5'); // 삭제
+            console.log($('.box3').hasClass('inner-box')); // true
+        });
+    </script>
+    <style>
+        .inner-box{
+            height: 20px;
+            background-color: tomato;
+            margin-bottom: 10px;
+        }
+        .box1{ background-color: lightseagreen; }
+        .box2{ background-color: lightcoral; }
+        .box3{ background-color: lightpink; }
+        .box4{ background-color: lightskyblue; }
+        .box5{ background-color: lightyellow; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="inner-box box1"></div>
+        <div class="inner-box box2"></div>
+        <div class="inner-box box3"></div>
+    </div>
+</body>
+</html>

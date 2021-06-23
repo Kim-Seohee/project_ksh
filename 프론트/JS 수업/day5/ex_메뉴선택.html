@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 선택 예제</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.menu a').click(function(e){
+                e.preventDefault(); // a태그의 기본 기능(이동)을 막아줌
+                $('.menu a').removeClass('selected');
+                $(this).addClass('selected');
+            });
+        });
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            color: #000;
+            text-decoration: none;
+        }
+        ul{
+            display: flex;
+        }
+        li{
+            width: 100%;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            box-sizing: border-box;
+            border: 1px solid black;
+            font-size: 20px;
+        }
+        li:nth-child(1), li:nth-child(2){
+            border-right: none;
+        }
+        a{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .selected{
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+           <li class="green"><a href="#">메뉴1</a></li>
+           <li class="green"><a href="#">메뉴2</a></li> 
+           <li class="green"><a href="#">메뉴3</a></li> 
+        </ul>
+    </nav>
+</body>
+</html>

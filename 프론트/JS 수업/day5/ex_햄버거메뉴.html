@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>햄버거 메뉴</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            $('.ham-menu').click(function(){
+                $('.menu-box').stop().animate({'margin-left': '0px'},1000);
+            });
+            $('.btn-close').click(function(){
+                $('.menu-box').stop().animate({'margin-left': '-200px'},1000);
+            });
+        });
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            color: #000;
+            text-decoration: none;
+            list-style: none;
+        }
+        nav{
+            height: 50px;
+            background-color: papayawhip;
+            position: relative;
+        }
+        .ham-menu{
+            width: 50px;
+            height: 50px;
+            box-sizing: border-box;
+            border: 1px solid papayawhip;
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-align: center;
+            line-height: 48px;
+            font-size: 35px;
+            cursor: pointer;
+        }
+        .fa-bars{
+            color: rosybrown;
+        }
+        .ham-menu:hover{
+            border-color: rosybrown;
+        }
+        .container{
+            position: relative;
+            height: 400px;
+            background-color: lightblue;
+            margin-top: 10px;
+        }
+        .menu-box{
+            width: 200px;
+            height: 400px;
+            background-color: peachpuff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-left: -200px;
+        }
+        .btn-close{
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            top: 0;
+            text-align: center;
+            line-height: 30px;
+        }
+        .fa-times{
+            color: rosybrown;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="ham-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="menu-box">
+            <div class="btn-close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

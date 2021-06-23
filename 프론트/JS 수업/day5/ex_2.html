@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('input[name=gender]').change(function(){
+                var gender = $(this).val();
+                $('.contents').val($('.' + gender).text());
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="text" class="contents" readonly> <br>
+    <input type="radio" name="gender" value="male"><span class="male">남성</span>
+    <input type="radio" name="gender" value="female"><span class="female">여성</span>
+</body>
+</html>

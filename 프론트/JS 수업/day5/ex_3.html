@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.next-btn').click(function(){
+                $('li').filter('.selected').next().addClass('selected');
+                $('li').filter('.selected').first().removeClass('selected');
+            })
+            $('.prev-btn').click(function(){
+                $('li').filter('.selected').prev().addClass('selected');
+                $('li').filter('.selected').last().removeClass('selected');
+            })
+        });
+    </script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            text-decoration: 0;
+            list-style: none;
+            color: black;
+        }
+        .nav{
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            width: 620px;
+        }
+        .container{
+            margin: 0 auto;
+            background-color: cornflowerblue;
+            width: 500px;
+        }
+        ul{
+            display: flex;
+            border: 1px solid black;
+        }
+        li{
+            width: 100%;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            border-right: 1px solid black;
+            cursor: pointer;
+        }
+        li:last-child{
+            border-right: none;
+        }
+        .selected{
+            background-color: pink;
+        }
+        .red{
+            background-color: red;
+        }
+        .prev-btn, .next-btn{
+            height: 50px;
+            line-height: 50px;
+            width: 50px;
+            text-align: center;
+            font-size: 30px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+        i{
+            color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="prev-btn">
+            <i class="fas fa-angle-left"></i>
+        </div>
+        <div class="container">
+            <ul>
+                <li class="selected">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </div>
+        <div class="next-btn">
+            <i class="fas fa-angle-right"></i>
+        </div>
+    </div>
+</body>
+</html>

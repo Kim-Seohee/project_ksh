@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.btn').stop().click(function(){
+                $('.menu').animate({left: '0'},1000);
+            });
+            $('.xBtn').stop().click(function(){
+                $('.menu').animate({left: '-200'},1000);
+            });
+        });
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .top{
+            height: 50px;
+            background-color: cadetblue;
+        }
+        .top::after{
+            content: '';
+            clear: both;
+            display: block;
+        }
+        .btn{
+            height: 50px;
+            line-height: 50px;
+            font-size: 30px;
+            text-align: center;
+            width: 50px;
+            float: right;
+            border: 1px solid black;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        .menu{
+            width: 200px;
+            height: 500px;
+            background-color: burlywood;
+            position: relative;
+        }
+        .xBtn{
+            width: 20px;
+            height: 20px;
+            box-sizing: border-box;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 20px;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="top">
+        <div class="btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    <div class="menu">
+        <div class="xBtn">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</body>
+</html>
