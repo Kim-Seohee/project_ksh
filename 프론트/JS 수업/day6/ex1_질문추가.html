@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질문 창 예제</title>
+    <script src="../js/jquery.min.js"></script>
+    <style>
+        .container{
+            position: relative;
+        }
+        .addQuestion{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="addQuestion">질문추가</button>
+        <div class="box">
+            <div class="title">질문1</div>
+            <input type="text">
+        </div>
+    </div>
+    <!-- <script>
+        var num = 2;
+        $(function(){
+            // var num = 2;
+            // var str1 = '<div><div class="title">질문';
+            // var str2 = '</div><input type="text"></div>';
+            // $('.addQuestion').click(function(){
+            //     $('.container').append(str1 + num + str2);
+            //     num++;
+            // });
+            var str =
+            '<div class="box">' +
+                '<div class="title">질문' + num++ + '</div>' +
+                '<input type="text">' + 
+            '</div>';
+            $('.container').append(str);
+        });  
+    </script> -->
+    <script>
+        $(function(){
+            $('.addQuestion').click(function(){
+                var num = $('.box').last().children('.title').text();
+                num = num.substr(2);
+                console.log(num);
+                num = parseInt(num);
+                var str =
+                '<div class="box">' +
+                    '<div class="title">질문' + ++num + '</div>' +
+                    '<input type="text">' + 
+                '</div>';
+                $('.container').append(str);
+            });
+        });  
+    </script>
+</body>
+</html>

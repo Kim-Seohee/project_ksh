@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rolling 예제 3</title>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        /*
+        - 롤링 방향이 오른쪽에서 왼쪽으로 이동하도록 작성해보세요.
+        */
+        $(function(){
+            setInterval(function(){
+                if(!$('.container').is(':animated')){
+                    $('.container').animate({'margin-left': -400 + 'px'},1500,function(){
+                        $('.box').first().detach().appendTo('.container');
+                        $(this).removeAttr('style');
+                    })
+                }
+            }, 2000)
+            $('.next-btn').click(function(){
+                $('.container').stop().animate({'margin-left': -400 + 'px'},300,function(){
+                    $('.box').first().detach().appendTo('.container');
+                    $(this).removeAttr('style');
+                })
+            })
+            $('.prev-btn').click(function(){
+                $('.container').stop().animate({'margin-right': -400 + 'px'},300,function(){
+                    $('.box').last().detach().prependTo('.container');
+                    $(this).removeAttr('style');
+                })
+            })
+        })
+    </script>
+    <style>
+        .view{
+            margin: 0 auto;
+            position: relative;
+            height: 300px;
+            width: 400px;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+        .container{
+            width: 1600px;
+            height: 300px;
+        }
+        .box{
+            height: 300px;
+            width: 400px;
+            background-color: pink;
+            text-align: center;
+            line-height: 300px;
+            font-size: 30px;
+            float: left;
+        }
+        .prev-btn{
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            top: 125px;
+            background-color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .next-btn{
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            top: 125px;
+            right: 0;
+            background-color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="view">
+            <div class="btn">
+                <div class="prev-btn"><i class="fas fa-chevron-left"></i></div>
+                <div class="next-btn"><i class="fas fa-chevron-right"></i></div>
+            </div>
+            <div class="container">
+                <div class="box">1</div>
+                <div class="box">2</div>
+                <div class="box">3</div>
+                <div class="box">4</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

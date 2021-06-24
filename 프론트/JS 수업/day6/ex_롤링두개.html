@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>롤링 두개</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        var id;
+        $(function(){
+            var id1 
+            // id1 = startInterval('.1');
+
+            // $('.1').hover(function(){
+            //     clearInterval(id1);
+            // },function(){
+            //     id1 = startInterval('.1');
+            // });
+            hoverEvent(id1, '.1');
+
+            var id2
+            // id2 = startInterval('.2');
+
+            // $('.2').hover(function(){
+            //     clearInterval(id2);
+            // },function(){
+            //     id2 = startInterval('.2');
+            // });
+            hoverEvent(id2, '.2');
+        });
+
+
+        function startInterval(obj){
+            var id = setInterval(function(){
+                if(!$(obj).find('li').first().is(':animated')){
+                    $(obj).find('li').first().animate({'margin-top': '-50px'}, 800, function(){
+                        $(this).detach().appendTo(obj).removeAttr('style');
+                    })
+                }
+            },1200);
+            return id;
+        }
+
+        function hoverEvent(id, obj){
+            id = startInterval(obj);
+
+            $(obj).hover(function(){
+                clearInterval(id);
+            },function(){
+                id = startInterval(obj);
+            });
+        }
+        // function startInterval1(){
+        //     var id1 = setInterval(function(){
+        //         if(!$('.1 li').first().is(':animated')){
+        //             $('.1 li').first().animate({'margin-top': '-50px'}, 800, function(){
+        //                 $(this).detach().appendTo('.1').removeAttr('style');
+        //             })
+        //         }
+        //     },1200);
+        //     return id1;
+        // }
+        // function startInterval2(){
+        //     var id2 = setInterval(function(){
+        //         if(!$('.2 li').first().is(':animated')){
+        //             $('.2 li').first().animate({'margin-top': '-50px'}, 800, function(){
+        //                 $(this).detach().appendTo('.2').removeAttr('style');
+        //             })
+        //         }
+        //     },1200);
+        //     return id2;
+        // }
+    </script>
+    <style>
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            height: 50px;
+            overflow: hidden;
+            text-align: center;
+            background-color: pink;
+            margin-bottom: 10px;
+        }
+        li{
+            height: 50px;
+            line-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="1">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <ul class="2">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</body>
+</html>

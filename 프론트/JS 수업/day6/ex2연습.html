@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질문 창 예제</title>
+    <script src="../js/jquery.min.js"></script>
+    <style>
+        .q-box, .q-main-box{
+            position: relative;
+        }
+        .main-add-btn{
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 2;
+        }
+        .sub-add-btn{
+            position: absolute;
+            top: 40px;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="q-box">
+        <button class="main-add-btn">메인질문추가</button>
+        <div class="q-main-box">
+            <div class="main-title">질문1</div>
+            <button class="sub-add-btn">서브질문추가</button>
+            <div class="q-sub-box">
+                <div class="sub-title">질문1-1</div>
+                <input type="text" class="sub-input">
+            </div>
+        </div>
+    </div>
+    <script>
+ 
+    </script>
+</body>
+</html>
