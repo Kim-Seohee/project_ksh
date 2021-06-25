@@ -23,10 +23,20 @@ function rollingRight(list, listItem, animateTime, intervalTime){
     var id = setInterval(function(){
         if(!$(list + ' ' + listItem).first().is(':animated')){
             var width = $(list + ' ' + listItem).last().width();
-            console.log('-' + width +'px')
-            $(list + ' ' + listItem).last().css('margin-left',-width + 'px').detach().prependTo('.box1')
-            $(list + ' ' + listItem).first().animate({'margin-left':'0px'},animateTime)
+            $(list + ' ' + listItem).last().css('margin-left',-width + 'px').detach().prependTo(list);
+            $(list + ' ' + listItem).first().animate({'margin-left':'0px'},animateTime);
         }
     },intervalTime)
     return id;
-}  
+}
+function rolling(direction, list, listItem, margin, animateTime, intervalTime){
+    if(direction.toLowerCase() == 'left'){
+        return rollingLeft(list, listItem, animateTime, intervalTime);
+    }
+    else if(direction.toLowerCase() == 'right'){
+        return rollingRight(list, listItem, animateTime, intervalTime);
+    }
+    else{
+        return rollingTop(list, listItem, margin, animateTime, intervalTime);
+    }
+}

@@ -8,15 +8,16 @@
     <script src="../js/jquery.min.js"></script>
     <script src="../js/rolling.js"></script>
     <script>
+        var id;
         $(function(){
-            var id = rollingRight('.box1', 'li', '800', '1500');
+            // id = rollingRight('.box1', 'li', '800', '1500');
+            id = rolling('right','.box1','li',0,'800','1500');
             $('.box1').hover(function(){
                 clearInterval(id);
             },function(){
-                id = rollingRight('.box1', 'li', '800', '1500');
+                id = rolling('right','.box1','li',0,'800','1500');
             })
         })
-
     </script>
     <style>
         .view-box{

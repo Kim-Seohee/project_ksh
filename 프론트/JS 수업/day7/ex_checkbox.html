@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        var arr = []; // 빈 배열
+        $(function(){
+            $('input[name=hobby]').click(function(){
+                // $('.box').text('');
+                var value = $(this).val();
+                var index = arr.indexOf(value);
+                // 선택한 항목이 있으면 (체크를 해제하면)
+                if(index >= 0){
+                    arr.splice(index,1);
+                }
+                // 선택한 항목이 없으면 (체크하면)
+                else{
+                    if(arr.length < 3){
+                        arr.push(value);
+                    }else{
+                        $(this).prop('checked',false);
+                        alert('최대 3개 입니다.');
+                    }
+                }
+                // $('.box').text(arr.join(','));
+                // for(var i = 0; i < arr.length; i++){
+                //     $('.box' + (i + 1)).text(arr[i]);
+                // }
+                
+                $('.box').each(function(i){
+                    var val = typeof arr[i] == 'undefined' ? '' : arr[i];
+                    $('.box').eq(i).text(val);
+                });
+                                
+            });
+        });
+    </script>
+    <style>
+        .container::after{
+            content: '';
+            clear: both;
+            display: block;
+        }
+        .box{
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 1px solid black;
+            margin-right: 10px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box box1"></div>
+        <div class="box box2"></div>
+        <div class="box box3"></div>
+    </div>
+    <label><input type="checkbox" name="hobby" value="농구">농구</label>
+    <label><input type="checkbox" name="hobby" value="야구">야구</label>
+    <label><input type="checkbox" name="hobby" value="축구">축구</label>
+    <label><input type="checkbox" name="hobby" value="볼링">볼링</label>
+    <label><input type="checkbox" name="hobby" value="독서">독서</label>
+</body>
+</html>

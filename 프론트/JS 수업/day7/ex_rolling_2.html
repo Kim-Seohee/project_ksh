@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/rolling.js"></script>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <script>
+        var id;
+        $(function(){
+            id = rolling('left','.box1','li',0,'1500','2000');
+            $('.box1, .next-btn, .prev-btn').hover(function(){
+                clearInterval(id);
+            },function(){
+                id = rolling('left','.box1','li',0,'1500','2000');
+            });
+            $('.next-btn').click(function(){
+                var width = $('.box1 li').first().width();
+                $('.box1 li').first().animate({'margin-left':'-'+width}, 200, function(){
+                    $(this).detach().appendTo('.box1').removeAttr('style');
+                })
+            });
+            $('.prev-btn').click(function(){
+                var width = $('.box1 li').last().width();
+                $('.box1 li').last().css('margin-left',-width + 'px').detach().prependTo('.box1');
+                $('.box1 li').first().animate({'margin-left':'0px'},200);
+            });
+        });
+    </script>
+    <style>
+        .view-box{
+            height: 50px;
+            overflow: hidden;
+            border: 2px solid black;
+            position: relative;
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 400%;
+        }
+        li{
+            width: 25%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 40px;
+            background-color: blanchedalmond;
+            float: left;
+        }
+        ul::after{
+            display: block;
+            content: '';
+            clear: both;
+        }
+        .prev-btn, .next-btn{
+            position: absolute;
+            top: 15px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: white;
+            cursor: pointer;
+        }
+        .next-btn{
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="view-box">
+        <div class="btn">
+            <div class="prev-btn"><i class="fas fa-chevron-left"></i></div>
+            <div class="next-btn"><i class="fas fa-chevron-right"></i></div>
+        </div>
+        <ul class="box1">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+</body>
+</html>
