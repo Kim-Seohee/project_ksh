@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴롤링연습</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/29eff9da12.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+        }
+        .container{
+            width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .prev-btn, .next-btn{
+            position: absolute;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            left: -25px;
+            background-color: papayawhip;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+        }
+        .next-btn{
+            left: auto;
+            right: -25px;
+        }
+        .view-box{
+            width: 800px;
+            height: 50px;
+            border: 2px solid pink;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .inner-box{
+            width: 300%;
+            height: 50px;
+        }
+        ul{
+            width: calc(100% / 3);
+            height: 50px;
+            float: left;
+        }
+        ul .menuitem{
+            width: 25%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            float: left;
+            box-sizing: border-box;
+            border-right: 2px solid pink;
+            color: pink;
+            font-weight: bolder;
+        }
+        .selected{
+            background-color: gainsboro;
+        }
+        .contents{
+            width: 100%;
+            height: 300px;
+            background-color: peachpuff;
+            display: none;
+        }
+        .contents:nth-child(2n){
+            background-color: powderblue;
+        }
+        .contents1{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="btn-box">
+            <div class="prev-btn"><i class="fas fa-chevron-left"></i></div>
+            <div class="next-btn"><i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="view-box">
+            <div class="inner-box">
+                <ul class="menu1">
+                    <li class="menuitem selected" data-target=".contents1">메뉴1</li>
+                    <li class="menuitem" data-target=".contents2">메뉴2</li>
+                    <li class="menuitem" data-target=".contents3">메뉴3</li>
+                    <li class="menuitem" data-target=".contents4">메뉴4</li>
+                </ul>
+                <ul class="menu2">
+                    <li class="menuitem" data-target=".contents5">메뉴5</li>
+                    <li class="menuitem" data-target=".contents6">메뉴6</li>
+                    <li class="menuitem" data-target=".contents7">메뉴7</li>
+                    <li class="menuitem" data-target=".contents8">메뉴8</li>
+                </ul>
+                <ul class="menu3">
+                    <li class="menuitem" data-target=".contents9">메뉴9</li>
+                    <li class="menuitem" data-target=".contents10">메뉴10</li>
+                    <li class="menuitem" data-target=".contents11">메뉴11</li>
+                    <li class="menuitem" data-target=".contents12">메뉴12</li>
+                </ul>
+            </div>
+        </div>
+        <div class="contents-box">
+            <div class="contents contents1">1</div>
+            <div class="contents contents2">2</div>
+            <div class="contents contents3">3</div>
+            <div class="contents contents4">4</div>
+            <div class="contents contents5">5</div>
+            <div class="contents contents6">6</div>
+            <div class="contents contents7">7</div>
+            <div class="contents contents8">8</div>
+            <div class="contents contents9">9</div>
+            <div class="contents contents10">10</div>
+            <div class="contents contents11">11</div>
+            <div class="contents contents12">12</div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $('.next-btn').click(function(){
+                var selected = $('.selected');
+                // 메뉴4, 8, 12
+                if(selected.next().length == 0){
+                    // 마지막 메뉴인 경우(메뉴 12)
+                    if(selected.parent().next().length == 0){
+                        return;
+                    }
+                    // 애니메이션
+                    var ml = $('.inner-box').css('margin-left');
+                    ml = parseFloat(ml);
+                    var width = $('ul').first().width();
+                    ml = ml - width;
+                    $('.inner-box').animate({'margin-left': ml + 'px'},500);
+                    // 이동 후 다음 큰 메뉴에서 첫번째 메뉴에 selected 클래스 추가
+                    selected.parent().next().children('.menuitem').first().addClass('selected');
+                    selected.removeClass('selected');
+
+                }else{
+                    // 큰 메뉴 내에서 다음으로 이동
+                    selected.removeClass('selected').next().addClass('selected');
+                }
+                $('.selected').click();
+            });
+            $('.prev-btn').click(function(){
+                var selected = $('.selected');
+                if(selected.prev().length == 0){
+                    if(selected.parent().prev().length == 0){
+                        return;
+                    }
+                    // 애니메이션
+                    var ml = $('.inner-box').css('margin-left');
+                    ml = parseFloat(ml);
+                    var width = $('ul').first().width();
+                    ml = ml + width;
+                    $('.inner-box').animate({'margin-left': ml + 'px'},500);
+                    selected.parent().prev().children('.menuitem').last().addClass('selected');
+                    selected.removeClass('selected');
+
+                }else{
+                    selected.removeClass('selected').prev().addClass('selected');
+                }
+                $('.selected').click();
+            });
+            $('.menuitem').click(function(){
+                $('.menuitem').removeClass('selected');
+                $(this).addClass('selected');
+                var target = $(this).attr('data-target');
+                $('.contents-box div').hide();
+                $(target).show();
+            });
+            $('.menuitem').eq(0).click();
+
+        })
+    </script>
+</body>
+</html>
