@@ -136,7 +136,7 @@ a { text-decoration: none; color: #000;}
 	height: 100%;
 }
 .left-box{
-	width: 750px; height: 100%; border: 1px solid red; float: left;
+	width: 750px; height: 100%; float: left;
 	box-sizing: border-box;
 }
 .right-box{
@@ -175,6 +175,124 @@ a { text-decoration: none; color: #000;}
 }
 .left2-3>.row>.col{
 	height: 65px; width: 100%;
+}
+.left3{
+	height: 72px;
+	box-sizing: border-box;
+	border: 1px solid black;
+	margin-top: 14px;
+}
+.left4{
+	height: 17px;
+	box-sizing: border-box;
+	background-color: blanchedalmond;
+	margin-top: 35px;
+	margin-bottom: 17px;
+
+}
+.left5{
+	position: relative;
+}
+.left5 .view-box{
+	width: 750px;
+	height: 49px;
+	box-sizing: border-box;
+	border: 1px solid #dae1e6;
+	overflow: hidden;
+}
+.left5 .prev-btn, .left5 .next-btn{
+	position: absolute;
+	top: 5px;
+	left: -20px;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 13px;
+	color: gray;
+	background-color: white;
+	border-radius: 50%;
+	box-shadow: 0 3px rgba(0,0,0,0.12);
+	cursor: pointer;
+}
+.left5 .next-btn{
+	left: auto;
+	right: -20px;
+}
+.left5 .inner-box{
+	width: 400%;
+	height: 49px;
+}
+.left5 .menu{
+	width: calc(100% / 4);
+	height: 49px;
+	float: left;
+	cursor: pointer;
+}
+.left5 .menu .menuitem{
+	width: calc(100% / 8);
+	height: 49px;
+	line-height: 49px;
+	text-align: center;
+	float: left;
+	box-sizing: border-box;
+	border-right: 1px solid #dae1e6;
+	font-size: 13px;
+	font-weight: bolder;
+}
+.left5 .menu .menuitem:nth-child(8n){
+	border-right: none;
+}
+.left5 .selected{
+	background-color: gray;
+	color: white;
+	box-shadow: 2px 0 11px rgba(0,0,0,0.12);
+}
+
+
+
+.left5 .item1.selected{
+	background-color: pink;
+}
+.left5 .item1:hover{
+	color: pink;
+}
+.left5 .item1.selected:hover{
+	color: white;
+}
+.left5 .item2.selected{
+	background-color: palegreen;
+}
+.left5 .item3.selected{
+	background-color: paleturquoise;
+}
+.left5 .item4.selected{
+	background-color: palevioletred;
+}
+.left5 .item5.selected{
+	background-color: darkcyan;
+}
+.left5 .item6.selected{
+	background-color: darkgoldenrod;
+}
+.left5 .item7.selected{
+	background-color: purple;
+}
+.left5 .item8.selected{
+	background-color: darkgreen;
+}
+.left5 .item9.selected{
+	background-color: darkorange;
+}
+
+
+.left5 .contents{
+	display: none;
+	height: 500px;
+	background-color: powderblue;
+}
+.left5 .contents:nth-child(2n){
+	background-color: rosybrown;
 }
 .bar{
 	background-color: #dae1e6;
