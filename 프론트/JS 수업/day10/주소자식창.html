@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주소자식창</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('#send').click(function(){
+                var address = $('#address').val();
+                var num = $('#num').val();
+                $(opener.document).find('#address').val(address); // opener: 이 창을 연 부모
+                $(opener.document).find('#num').val(num);
+                window.close();
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="text" id="address" placeholder="주소"><br>
+    <input type="text" id="num" placeholder="우편번호"><br>
+    <button id="send">전송</button>
+</body>
+</html>

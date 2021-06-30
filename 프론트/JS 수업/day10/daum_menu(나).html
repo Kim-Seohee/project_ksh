@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <style>
+        *{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .container{
+            width: 600px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .menu{
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid black;
+            height: 50px;
+            display: flex;
+        }
+        .item{
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-right: 1px solid black;
+            cursor: pointer;
+            box-sizing: border-box;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        .item:last-child{
+            border-right: none;
+        }
+        .selected{
+            color: cornflowerblue;
+            text-decoration: underline;
+        }
+        .container div{
+            display: none;
+        }
+        .container .contents1{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul class="menu">
+            <li class="item selected" data-target=".contents1" target-href="https://news.daum.net/">뉴스</li>
+            <li class="item" data-target=".contents2" target-href="https://entertain.daum.net/">연예</li>
+            <li class="item" data-target=".contents3" target-href="https://sports.daum.net/">스포츠</li>
+        </ul>
+        <div class="contents1">1</div>
+        <div class="contents2">2</div>
+        <div class="contents3">3</div>
+    </div>
+    <script>
+        $(function(){
+            $('.item').click(function(){
+                if($(this).hasClass('selected')){
+                    location.href = $(this).attr('target-href');
+                    // window.open($(this).attr('target-href'));
+                }else{
+                    $('.item').removeClass('selected');
+                    $(this).addClass('selected');
+                    $('.container div').hide();
+                    var target = $(this).attr('data-target');
+                    $(target).show();
+                }
+            })
+            
+        })
+    </script>
+</body>
+</html>

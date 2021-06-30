@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주소부모창</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('#findBtn').click(function(){
+                child = window.open('주소자식창.html','주소검색','width=500, height=500, left=200, top=200');
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="text" id="address" placeholder="주소" readonly> <button id="findBtn">찾기</button> <br>
+    <input type="text" id="num" placeholder="우편번호" readonly>
+</body>
+</html>

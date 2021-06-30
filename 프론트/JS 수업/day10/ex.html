@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        // 잘못함!!!!!!!!!!
+        $(function(){
+            $('.menu .list').click(function(e){
+                if(!$(this).hasClass('news')){
+                    $('a.submenu i').removeClass('selected2');
+                }else{
+                    $('a.submenu').first().find('i').addClass('selected2');
+                }
+                if(!$(this).children('a.menulist').hasClass('selected1')){
+                    e.preventDefault();
+                }
+                $('.menu .list').children('a.menulist').removeClass('selected1');
+                $(this).children('a.menulist').addClass('selected1');
+            })
+            $('.news').click(function(){
+            })
+            $('.list a.submenu').click(function(e){
+                e.stopPropagation();
+                $('a.submenu').children('i').removeClass('selected2');
+                $(this).children('i').addClass('selected2');
+            })
+        })
+    </script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <style>
+        *{
+            list-style: none;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+        .menu{
+            height: 50px;
+        }
+        .menu::after{
+            clear: both;
+            content: '';
+            display: block;
+        }
+        .menulist{
+            height: 50px;
+            line-height: 50px;
+            font-size: 30px;
+            display: block;
+            float: left;
+        }
+        .submenu{
+            display: block;
+            float: left;
+            height: 50px;
+            line-height: 50px;
+            font-size: 1px;
+        }
+        .selected1{
+            color: blue;
+        }
+        .selected2{
+            color: blue;
+        }
+        li{
+            height: 50px;
+            z-index: 1;
+            float: left;
+        }
+        
+    </style>
+</head>
+<body>
+    <ul class="menu">
+        <li class="list news">
+            <a class="selected1 menulist" href="#">뉴스</a>
+            <a class="submenu" href="#"><i class="selected2 fas fa-circle"></i></a>
+            <a class="submenu" href="#"><i class="fas fa-circle"></i></a>
+            <a class="submenu" href="#"><i class="fas fa-circle"></i></a>
+        </li>
+        <li class="list"><a class="menulist" href="#">연예</a></li>
+    </ul>
+    <div class="contents">
+        <div class="news1"></div>
+        <div class="news2"></div>
+        <div class="news3"></div>
+        <div class="enter"></div>
+    </div>
+</body>
+</html>

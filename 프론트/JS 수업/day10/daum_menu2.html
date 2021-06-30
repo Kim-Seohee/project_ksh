@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다음 메뉴</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            // 메뉴를 클릭
+            $('.menu2 li').click(function(e){
+                // 해당 메뉴가 처음 선택되었으면 링크 이벤트를 중지
+                if(!$(this).hasClass('selected')){
+                    e.preventDefault();
+                }
+                // 뉴스 메뉴에서 ...부분에 색을 칠할지 말지 정함
+                var index = $(this).index();
+                // 선택된 메뉴가 뉴스이면 첫번째 .에 색을 칠함
+                if(index == 0){
+                    $('.menu2 .point-box').children().first().addClass('selected');
+                }
+                // 선택된 메뉴가 뉴스가 아니면 모든 ...에 색을 제거
+                else{
+                    $('.menu2 .point-box').children().removeClass('selected');
+                }
+                // 모든 메뉴에 색을 제거
+                $('.menu2 li').removeClass('selected');
+                // 선택된 메뉴에만 색을 칠함
+                $(this).addClass('selected');
+            })
+            // 메뉴 뉴스 옆에 있는 ...을 클릭
+            $('.menu2 .point-box').click(function(e){
+                // 뉴스 메뉴가 이미 선택되어 있으면 뉴스 메뉴가 클릭되지 않도록 이벤트 퍼짐 현상을 막음
+                if($(this).parent().hasClass('selected')){
+                    e.stopPropagation();
+                }
+                // 첫번째 .이나 두번째 .이면 다음 .으로 이동
+                if($(this).find('.selected').next().length != 0){
+                    $(this).find('.selected').removeClass('selected').next().addClass('selected');
+                }
+                // 세번째 점이면 첫번째 .으로 이동
+                else{
+                    $(this).find('.selected').removeClass('selected');
+                    $(this).children().first().addClass('selected');
+                    // $('.menu2 .point-box .point').eq(0).addClass('selected');
+                }
+            })
+        })
+    </script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            color: #000;
+        }
+        .menu::after,
+        .menu li::after{
+            content: '';
+            clear: both;
+            display: block;
+        }
+        .menu li{
+            height: 50px;
+            line-height: 50px;
+            font-weight: bold;
+            float: left;
+            margin-right: 15px;
+        }
+        .menu li a{
+            float: left; /* 자동으로 display:block이 된다*/
+            height: 100%;
+        }
+        .selected a{
+            color: plum;
+        }
+        .point{
+            float: left;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: gray;
+            position: relative;
+            top: calc(50% - 2px);
+            margin-right: 5px;
+        }
+        .point-box{
+            margin-left: 5px;
+        }
+        .point-box .selected{
+            background-color: hotpink;
+        }
+    </style>
+</head>
+<body>
+    <ul class="menu menu2">
+        <li class="selected">
+            <a href="https://news.daum.net/">뉴스</a>
+            <a href="#" class="point-box">
+                <span class="selected point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+            </a>
+        </li>
+        <li><a href="https://entertain.daum.net/">연예</a></li>
+        <li><a href="https://sports.daum.net/">스포츠</a></li>
+        <li><a href="https://movie.daum.net/main">영화</a></li>
+        <li><a href="https://auto.daum.net/">자동차</a></li>
+        <li><a href="https://realty.daum.net/">부동산</a></li>
+    </ul>
+</body>
+</html>
