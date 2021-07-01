@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 호버</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.main-menu>li').hover(function(){
+                $(this).find('.sub-menu').toggle();
+            })
+            // 들어갈 때와 나올 때 다른 작업을 할 거면 밑의 코드를 사용한다.
+            // $('.main-menu>li').hover(function(){
+                
+            // },function(){
+                
+            // })
+        })
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+            color: #000;
+        }
+        .main-menu{
+            display: flex;
+            border: 1px solid salmon;
+        }
+        .main-menu>li{
+            width: 100%;
+            border-right: 1px solid salmon;
+            box-sizing: border-box;
+            height: 50px;
+        }
+        .main-menu>li:last-child{
+            border-right: none;
+        }
+        .main-menu>li>a{
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        .sub-menu{
+            width: 100%;
+            border: 1px solid slateblue;
+            position: relative;
+            bottom: -1px; /* 자식들은 부모의 컨텐츠부터 시작하기 때문에 위치를 맞춰줘야 함*/
+            left: -1px;
+            display: none;
+        }
+        .sub-menu>li{
+            border-bottom: 1px solid slateblue;
+        }
+        .sub-menu>li:last-child{
+            border-bottom: none;
+        }
+        .sub-menu>li>a{
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="main-menu">
+            <li>
+                <a href="#">메뉴1</a>
+                <ul class="sub-menu">
+                    <li><a href="#">메뉴1-1</a></li>
+                    <li><a href="#">메뉴1-2</a></li>
+                    <li><a href="#">메뉴1-3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">메뉴2</a>
+                <ul class="sub-menu">
+                    <li><a href="#">메뉴2-1</a></li>
+                    <li><a href="#">메뉴2-2</a></li>
+                    <li><a href="#">메뉴2-3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">메뉴3</a>
+                <ul class="sub-menu">
+                    <li><a href="#">메뉴3-1</a></li>
+                    <li><a href="#">메뉴3-2</a></li>
+                    <li><a href="#">메뉴3-3</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

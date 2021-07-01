@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>댓글 예제</title>
+    <script src="../js/jquery.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 600px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+        .title{
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            color: pink;
+        }
+        .writer{
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+        }
+        .contents{
+            width: 100%;
+            height: 300px;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+        .comment-title{
+            height: 40px;
+            line-height: 40px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .register::after, .comment::after{
+            clear: both;
+            content: '';
+            display: block;
+        }
+        .comment-writer, .comment-input, .reg{
+            float: left;
+        }
+        .comment-writer{
+            width: 100px;
+        }
+        .comment-input{
+            width: 400px;
+            height: 78px;
+            resize: none;
+        }
+        .reg{
+            width: 78px;
+            height: 78px;
+            margin-left: 20px;
+        }
+        .comment{
+            margin-bottom: 10px;
+        }
+        .comment-writer-reged{
+            width: 100px;
+            float: left;
+        }
+        .comment-contents{
+            width: 400px;
+            float: left;
+        }
+        .delete{
+            width: 78px;
+            float: right
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">제목입니다</div>
+        <div class="writer">홍길동</div>
+        <div class="contents"></div>
+        <div class="comment-title">댓글</div>
+        <div class="comment-section">
+            <div class="comment-inner-section">
+                <!-- <div class="comment">
+                    <div class="comment-writer-reged">작성자</div>
+                    <div class="comment-contents">내용</div>
+                    <button class="delete">삭제X</button>
+                </div> -->
+            </div>
+            <div class="register">
+                <div class="comment-writer">작성자</div>
+                <textarea cols="30" rows="10" class="comment-input"></textarea>
+                <button class="reg">등록</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $('.reg').click(function(){
+                var value = $('.comment-input').val();
+                var comment =   '<div class="comment">' +
+                                    '<div class="comment-writer-reged">작성자</div>' +
+                                    '<div class="comment-contents">'+ value +'</div>' +
+                                    '<button class="delete">삭제X</button>' +
+                                '</div>';
+                $('.comment-inner-section').append(comment);
+                $('.comment-input').val('');
+                // $('button.delete').click(function(){
+                //     console.log('1');
+                //     $(this).parent().remove();
+                // })
+            })
+            // 새로 추가된 요소에 이벤트를 적용하고 싶을 때는 on을 쓴다.
+            $(document).on('click', '.delete', function(){
+                $(this).parent().remove();
+            })
+        })
+    </script>
+</body>
+</html>

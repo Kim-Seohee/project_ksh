@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 예제</title>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function(){
+            var emptyMsg = '필수 정보입니다';
+            var idReg = /^[a-z0-9_-]{5,20}$/;
+            var idRegexMsg = '5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.';
+            var pwRegex = /^[a-z0-9A-Z~!@#$%&*]{8,16}$/;
+            var pwRegexMsg = '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.';
+            var nameRegex = /^[a-zA-Z가-힣]+$/;
+            var nameRegexMsg = '한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)';
+            var birthyearRegex = /^[0-9]{4}$/;
+            var emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            // id 검사
+            $('input[name=id]').change(function(){
+                var id = $('input[name=id]').val();
+                var str = check(id, idReg, emptyMsg, idRegexMsg);
+                $('.id-error').text(str);
+            });
+            // pw 검사
+            $('input[name=pw]').change(function(){
+                var pw = $('input[name=pw]').val();
+                var str = check(pw, pwRegex, emptyMsg, pwRegexMsg);
+                $('.pw-error').text(str);
+            });
+            // pwconfirm 검사
+            $('input[name=pwconfirm]').change(function(){
+                var pw = $('input[name=pw]').val();
+                var pwconfirm = $('input[name=pwconfirm]').val();
+                if(pwconfirm == ''){
+                    $('.pwconfirm-error').text(emptyMsg)
+                }else if(pwconfirm != pw){
+                    $('.pwconfirm-error').text('비밀번호가 일치하지 않습니다');
+                }else{
+                    // console.log('1')
+                    $('.pwconfirm-error').text('');
+                }
+            });
+            // 이름 검사
+            $('input[name=name]').change(function(){
+                var name = $('input[name=name]').val();
+                var str = check(name, nameRegex, emptyMsg, nameRegexMsg);
+                $('.name-error').text(str);
+            });
+            // 생년월일 검사
+            $('input[name=birthyear]').change(function(){
+                var birthyear = $('input[name=birthyear]').val();
+                if(!birthyearRegex.test(birthyear)){
+                    $('.birth-error').text('태어난 년도 4자리를 정확하게 입력하세요.');
+                }else{
+                    $('.birth-error').text('');
+                }
+            });
+            $('select[name=birthmonth]').change(function(){
+                var birthmonth = $('select[name=birthmonth]').val();
+                // console.log(birthmonth);
+                if(birthmonth == 'non'){
+                    $('.birth-error').text('태어난 월을 선택하세요.');
+                }else{
+                    $('.birth-error').text('');
+                }
+            });
+            $('input[name=birthday]').on('input',function(){
+                var value = $(this).val();
+                value = value.replace(/[^0-9]/g, '').replace(/([0-9]{2})/g,'$1'); 
+                $(this).val(value);
+            })
+            $('input[name=birthday]').change(function(){
+                var birthday = $('input[name=birthday]').val();
+                if(birthday == ''){
+                    $('.birth-error').text('태어난 일(날짜) 2자리를 정확하게 입력하세요.');
+                }else if(birthday == '0' || birthday > 31){
+                    $('.birth-error').text('생년월일을 다시 확인해주세요.');
+                }else{
+                    $('.birth-error').text('');
+                }
+            });
+            $('input[name=email]').change(function(){
+                var email = $('input[name=email]').val();
+                if(!emailRegex.test(email)){
+                    $('.email-error').text('이메일 주소를 다시 확인해주세요.');
+                }else{
+                    $('.email-error').text('');
+                }
+            });
+        })
+        function check(str, regex, emptyMsg, regexMsg){
+            if(str == ''){ // JS에서는 문자열 비교 ==로 한다
+                return emptyMsg;
+            }else if(!regex.test(str)){
+                return regexMsg;
+            }else{
+                return '';
+            }  
+        }
+    </script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: #f5f6f7;
+        }
+        .error{
+            font-size: 12px;
+            color: red;
+        }
+        .container{
+            width: 445px;
+            margin: 0 auto;
+        }
+        .logo{
+            width: 165px;
+            height: 32px;
+            background-image: url(https://ssl.pstatic.net/static/nid/join/m_logo_naver.png);
+            background-size: 165px auto;
+            margin: 40px auto;
+            
+        }
+        h3{
+            font-size: 15px;
+        }
+        .join-row{
+            margin-bottom: 20px;
+        }
+        .pw-error{
+            margin-bottom: 20px;
+        }
+        input, select{
+            box-sizing: border-box;
+            width: 445px;
+            height: 51px;
+            padding: 10px 14px;
+        }
+        .year, .month, .day{
+            width: calc(425px / 3);
+            margin-right: 2px;
+        }
+        button{
+            background-color: #03c75a;
+            border: none;
+            width: 445px;
+            height: 51px;
+            font-size: 20px;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+    <form action="">
+        <div class="container">
+            <div class="logo"><img src="" alt=""></div>
+            <div class="join-row">
+                <h3>아이디</h3>
+                <input type="text" name="id">
+                <div class="error id-error"></div>
+            </div>
+            <div class="join-row">
+                <h3>비밀번호</h3>
+                <input type="text" name="pw">
+                <div class="error pw-error"></div>
+                <h3>비밀번호 재확인</h3>
+                <input type="text" name="pwconfirm">
+                <div class="error pwconfirm-error"></div>
+            </div>
+            <div class="row-group">
+                <div class="join-row">
+                    <h3>이름</h3>
+                    <input type="text" name="name">
+                    <div class="error name-error"></div>
+                </div>
+                <div class="join-row">
+                    <h3>생년월일</h3>
+                    <input type="text" name="birthyear" class="year"> 
+                    <select name="birthmonth" class="month">
+                        <option value="non">월</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <input type="text" name="birthday" class="day">
+                    <div class="error birth-error"></div>
+                </div>
+                <div class="join-row">
+                    <h3>성별</h3>
+                    <select name="gender">
+                        <option value="male">남자</option>
+                        <option value="female">여자</option>
+                        <option value="non">선택 안함</option>
+                    </select>
+                </div>
+                <div class="join-row">
+                    <h3>본인 확인 이메일<span class="choice">(선택)</span></h3>
+                    <input type="text" name="email" placeholder="선택입력">
+                    <div class="error email-error"></div>
+                </div>
+            </div>
+            <div class="join-row">
+                <h3>휴대전화</h3>
+                <input type="text" name="phone" placeholder="전화번호 입력">
+                <div class="error phone-error"></div>
+            </div>
+            <button>가입하기</button>
+        </div>
+    </form>
+</body>
+</html>
