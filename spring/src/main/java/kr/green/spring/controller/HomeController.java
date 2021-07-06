@@ -32,13 +32,28 @@ public class HomeController {
 		System.out.println(user);
 		// 서비스에게 아이디와 비밀번호를 전달하면, 해당 정보가 DB에 있으면 회원 정보를 없으면 null을 반환
 		MemberVO dbUser = memberService.signin(user);
+		// 회원정보가 있으면(로그인에 성공하면)
 		if(dbUser != null) {			
 			// 작업이 다 끝난 후 URI가 /인 곳으로 넘어감
 			mv.setViewName("redirect:/");
-		}else {
+		}
+		// 회원정보가 없으면(일치하는 아이디가 없거나 비밀번호가 잘못되었거나)(로그인에 실패하면)
+		else {
 			mv.setViewName("redirect:/signin");
 		}
 		return mv;
 	}
 	
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public ModelAndView signupGet(ModelAndView mv) {
+		mv.setViewName("signup");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
+		System.out.println(user);
+		mv.setViewName("redirect:/signup");
+		return mv;
+	}
 }
