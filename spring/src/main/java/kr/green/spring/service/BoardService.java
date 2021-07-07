@@ -14,6 +14,8 @@ public interface BoardService {
 
 	int updateViews(Integer num);
 
-	int upgradeBoard(BoardVO board);
+	int updateBoard(BoardVO board);
+
+	int deleteBoard(Integer num);
 
 }
