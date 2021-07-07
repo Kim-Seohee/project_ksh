@@ -30,4 +30,10 @@ public class BoardServiceImp implements BoardService {
 		return board;
 		// return boardDao.getBoard(num);과 같은 두 줄이다.
 	}
+
+	@Override
+	public void insertBoard(BoardVO board) {
+		// 다오에게 게시글 정보를 주면서 게시글을 등록하라고 시킴
+		boardDao.insertBoard(board);
+	}
 }
