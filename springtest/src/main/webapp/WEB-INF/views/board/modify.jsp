@@ -11,7 +11,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
+<form class="container" method="post" action="<%=request.getContextPath()%>/board/modify">
 	<h1>게시글</h1>
 	<div class="form-group">
 	  <label>게시글 번호</label>
@@ -31,15 +31,14 @@
 	</div>
 	<div class="form-group">
 	  <label>제목</label>
-	  <input type="text" class="form-control" name="title" readonly value="${board.title}">
+	  <input type="text" class="form-control" name="title" value="${board.title}">
 	</div>
 	<div class="form-group">
 	  <label>내용</label>
-	  <textarea name="contents" class="form-control" readonly rows="10">${board.contents}</textarea>
+	  <textarea name="contents" class="form-control" rows="10">${board.contents}</textarea>
 	</div>
-	<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-danger">목록</button></a>
-	<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><button class="btn btn-outline-danger">수정</button></a>
-	<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-danger">삭제</button></a>
-</div>
+	<a href="<%=request.getContextPath()%>/board/list"><button type="button" class="btn btn-outline-danger">목록</button></a>
+	<a href="<%=request.getContextPath()%>/board/modify"><button class="btn btn-outline-danger">수정</button></a>
+</form>
 </body>
 </html>
