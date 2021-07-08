@@ -74,4 +74,11 @@ public class HomeController {
 		mv.setViewName("/member/mypage");
 		return mv;
 	}
+	@RequestMapping(value = "/member/mypage", method = RequestMethod.POST)
+	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO member) {
+		// 서비스에게 회원 정보를 주면서 수정하라고 요청
+		memberService.updateMember(member);
+		mv.setViewName("redirect:/member/mypage");
+		return mv;
+	}
 }
