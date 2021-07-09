@@ -20,25 +20,27 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping(value="/list")
-	public ModelAndView boardList(ModelAndView mv) {
+	public ModelAndView boardList(ModelAndView mv, String msg) {
 		// 서비스에게 모든 게시글을 가져오라고 시킴
 		ArrayList<BoardVO> list = boardService.getBoardList();
 		// 화면에 모든 게시글을 전송
 		mv.addObject("list", list);
+		mv.addObject("msg", msg);
 		mv.setViewName("board/list");
 		return mv;
 	}
 	
 	@RequestMapping(value="/detail")
-	public ModelAndView boardDetail(ModelAndView mv, Integer num) {
+	public ModelAndView boardDetail(ModelAndView mv, Integer num, String msg) {
 //		log.info("test");
 //		log.info(num);
 		boardService.updateViews(num);
 		// 서비스에게 게시글 번호를 주고 게시글을 가져오라고 시킴
 		BoardVO board = boardService.getBoard(num);
-		log.info(board);
+		// log.info(board);
 		// 화면에 게시글을 출력
 		mv.addObject("board", board);
+		mv.addObject("msg", msg);
 		mv.setViewName("board/detail");
 		return mv;
 	}
@@ -66,15 +68,22 @@ public class BoardController {
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board) {
-		boardService.updateBoard(board);
+		int res = boardService.updateBoard(board);
+		String msg = res !=0 ? board.getNum() + "번 게시글이 수정되었습니다." : "없는 게시글입니다.";
+		mv.addObject("msg", msg);
 		mv.addObject("num", board.getNum());
 		mv.setViewName("redirect:/board/detail");
 		return mv;
 	}
 	
-	@RequestMapping(value="/delete")
-	public ModelAndView boardDelete(ModelAndView mv, Integer num) {
-		boardService.deleteBoard(num);
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public ModelAndView boardDeletePost(ModelAndView mv, Integer num) {
+		int res = boardService.deleteBoard(num);
+		if(res != 0) {
+			mv.addObject("msg", num + "번 게시글을 삭제했습니다.");
+		}else {
+			mv.addObject("msg", "게시글이 없거나 이미 삭제되었습니다.");
+		}
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}

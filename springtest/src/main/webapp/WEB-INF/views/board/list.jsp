@@ -44,5 +44,18 @@
   </c:if>
   <a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-success">글쓰기</button></a>
 </div>
+	<script>
+		$(function(){
+			var msg = '${msg}';
+			printMsg(msg);
+			history.replaceState({},null,null); // history를 비워줌
+		})
+		function printMsg(msg){
+			if(msg == '' || history.state){
+				return
+			}
+			alert(msg);
+		}
+	</script>
 </body>
 </html>

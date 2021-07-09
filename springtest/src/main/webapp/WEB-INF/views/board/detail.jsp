@@ -37,9 +37,29 @@
 	  <label>내용</label>
 	  <textarea name="contents" class="form-control" readonly rows="10">${board.contents}</textarea>
 	</div>
-	<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-danger">목록</button></a>
-	<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><button class="btn btn-outline-danger">수정</button></a>
-	<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-danger">삭제</button></a>
+	<div class="input-group">
+		<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-danger">목록</button></a>
+		<c:if test="${board != null}"> <!--게시글이 있을 때만 수정,삭제 버튼을 보여줌-->
+			<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-danger">수정</button></a>
+			<form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">
+				<input type="hidden" value="${board.num}" name="num">
+				<button class="btn btn-outline-danger">삭제</button>
+			</form>
+		</c:if>
+	</div>
 </div>
+<script>
+	$(function(){
+		var msg = '${msg}';
+		printMsg(msg);
+		history.replaceState({},null,null); // history를 비워줌
+	})
+	function printMsg(msg){
+		if(msg == '' || history.state){
+			return
+		}
+		alert(msg);
+	}
+</script>
 </body>
 </html>
