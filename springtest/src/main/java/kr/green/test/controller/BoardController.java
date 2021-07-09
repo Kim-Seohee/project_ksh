@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.test.pagination.Criteria;
+import kr.green.test.pagination.PageMaker;
 import kr.green.test.service.BoardService;
 import kr.green.test.vo.BoardVO;
 import lombok.extern.log4j.Log4j;
@@ -20,12 +22,20 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping(value="/list")
-	public ModelAndView boardList(ModelAndView mv, String msg) {
+	public ModelAndView boardList(ModelAndView mv, String msg, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(3);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(2);
+		int totalCount = boardService.getTotalCount(cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
 		// 서비스에게 모든 게시글을 가져오라고 시킴
-		ArrayList<BoardVO> list = boardService.getBoardList();
+		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		// 화면에 모든 게시글을 전송
 		mv.addObject("list", list);
 		mv.addObject("msg", msg);
+		mv.addObject("pm", pm);
 		mv.setViewName("board/list");
 		return mv;
 	}
