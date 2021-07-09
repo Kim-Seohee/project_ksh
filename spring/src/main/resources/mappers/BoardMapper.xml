@@ -5,7 +5,20 @@
 <mapper namespace="kr.green.spring.dao.BoardDAO">
 	<select id="getBoardList" resultType="kr.green.spring.vo.BoardVO">
 		select * from board 
-			where valid = 'I' 
+			where 
+				valid = 'I'
+			<if test="cri.type==0">
+				and ( contents like concat('%',#{cri.search},'%')
+				or title like concat('%',#{cri.search},'%')
+				or writer like concat('%',#{cri.search},'%') )
+			</if>
+			<if test="cri.type==1">
+				and ( contents like concat('%',#{cri.search},'%')
+				or title like concat('%',#{cri.search},'%') )
+			</if>
+			<if test="cri.type==2">
+				and writer like concat('%',#{cri.search},'%')
+			</if>
 			order by num desc
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
@@ -26,5 +39,17 @@
 	</update>
 	<select id="getTotalCount" resultType="int">
 		select count(*) from board where valid = "I"
+		<if test="cri.type==0">
+			and ( contents like concat('%',#{cri.search},'%')
+			or title like concat('%',#{cri.search},'%')
+			or writer like concat('%',#{cri.search},'%') )
+		</if>
+		<if test="cri.type==1">
+			and ( contents like concat('%',#{cri.search},'%')
+			or title like concat('%',#{cri.search},'%') )
+		</if>
+		<if test="cri.type==2">
+			and writer like concat('%',#{cri.search},'%')
+		</if>
 	</select>
 </mapper>
