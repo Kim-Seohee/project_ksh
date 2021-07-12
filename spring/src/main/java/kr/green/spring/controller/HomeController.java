@@ -1,15 +1,15 @@
 package kr.green.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.spring.service.MemberService;
 import kr.green.spring.vo.MemberVO;
-import lombok.Data;
 
 @Controller
 public class HomeController {
@@ -42,6 +42,7 @@ public class HomeController {
 		else {
 			mv.setViewName("redirect:/signin");
 		}
+		mv.addObject("user", dbUser);
 		return mv;
 	}
 	@RequestMapping(value="/signup", method = RequestMethod.GET)
@@ -66,18 +67,21 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
-	public ModelAndView memberMypageGet(ModelAndView mv, String id) {
-		// 서비스에게 아이디를 주면서 회원정보를 가져오라고 시킴
-		MemberVO member = memberService.getMember(id);
-		// 가져온 회원 정보를 화면에 전달
-		mv.addObject("member", member);
+	public ModelAndView memberMypageGet(ModelAndView mv) {
 		mv.setViewName("/member/mypage");
 		return mv;
 	}
 	@RequestMapping(value = "/member/mypage", method = RequestMethod.POST)
-	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO member) {
-		// 서비스에게 회원 정보를 주면서 수정하라고 요청
-		memberService.updateMember(member);
+	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO user, HttpServletRequest request) {
+		// request에 있는 세션 안에 있는 로그인한 회원 정보를 가져옴
+		MemberVO sessionUser = memberService.getMember(request);
+		// 세션에 로그인한 회원 정보가 있고, 세션에 있는 아이디와 수정할 아이디가 같으면 회원 정보를 수정함
+		if(sessionUser != null && sessionUser.getId().equals(user.getId())) {		
+			MemberVO updatedUser = memberService.updateMember(user);
+			if(updatedUser != null) {
+				request.getSession().setAttribute("user", updatedUser);
+			}
+		}
 		mv.setViewName("redirect:/member/mypage");
 		return mv;
 	}

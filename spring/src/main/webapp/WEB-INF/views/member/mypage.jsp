@@ -15,7 +15,7 @@
 	<h1>회원정보</h1>
 	<div class="form-group">
 		<label>아이디</label>
-		<input type="text" class="form-control" value="${member.id}" readonly name="id">
+		<input type="text" class="form-control" value="${user.id}" readonly name="id">
 	</div>
 	<div class="form-group">
 		<label>새 비밀번호</label>
@@ -27,17 +27,17 @@
 	</div>
 	<div class="form-group">
 		<label>이름</label>
-		<input type="text" class="form-control" value="${member.name}" readonly name="name">
+		<input type="text" class="form-control" value="${user.name}" readonly name="name">
 	</div>
 	<div class="form-group">
 		<label>이메일</label>
-		<input type="text" class="form-control" value="${member.email}" name="email">
+		<input type="text" class="form-control" value="${user.email}" name="email">
 	</div>
 	<div class="form-group">
 		<label>성별</label>
 		<select class="form-control" name="gender">
-			<option value="M"<c:if test="${member.gender == 'M'}">selected</c:if>>남성</option>
-			<option value="F"<c:if test="${member.gender == 'F'}">selected</c:if>>여성</option>
+			<option value="M"<c:if test="${user.gender == 'M'}">selected</c:if>>남성</option>
+			<option value="F"<c:if test="${user.gender == 'F'}">selected</c:if>>여성</option>
 		</select>
 	</div>
 	<button class="btn btn-outline-success col-12">수정</button>
