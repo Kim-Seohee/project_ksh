@@ -31,7 +31,7 @@
 	</div>
 	<div class="form-group">
 	  <label>제목</label>
-	  <input type="text" class="form-control" name="title" readonly value="${board.title}">
+	  <input type="text" class="form-control" name="title" readonly value="<c:out value="${board.title}"/>">
 	</div>
 	<div class="form-group">
 	  <label>내용</label>
