@@ -23,13 +23,11 @@ public class BoardController {
 	
 	@RequestMapping(value="/list")
 	public ModelAndView boardList(ModelAndView mv, String msg, Criteria cri) {
-		PageMaker pm = new PageMaker();
 		cri.setPerPageNum(3);
-		pm.setCriteria(cri);
-		pm.setDisplayPageNum(2);
+		// 현재 페이지 정보(검색타입, 검색어)에 대한 총 게시글 수를 가져와야 함
 		int totalCount = boardService.getTotalCount(cri);
-		pm.setTotalCount(totalCount);
-		pm.calcData();
+		PageMaker pm = new PageMaker(totalCount, 2, cri);
+
 		// 서비스에게 모든 게시글을 가져오라고 시킴
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		// 화면에 모든 게시글을 전송

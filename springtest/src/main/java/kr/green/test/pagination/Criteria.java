@@ -25,7 +25,7 @@ public class Criteria {
 	public Criteria() {
 		this.page = 1;
 		this.perPageNum = 10;
-		this.type = 0;
+//		this.type = 0; // int 초기값은 초기화를 안 해도 0임
 		this.search = "";
 	}
 	//getter and setter
@@ -44,9 +44,7 @@ public class Criteria {
 		return perPageNum;
 	}
 	public void setPerPageNum(int perPageNum) {
-		/* 한 페이지에 컨텐츠 수를 1이상 100이하로 설정
-		개발자 설정에 따라 100부분을 수정할 수 있음 */
-		if(perPageNum < 0 || perPageNum > 100) {
+		if(perPageNum <= 0 || perPageNum > 100) {
 			this.perPageNum = 10;
 		}
 		else
