@@ -68,7 +68,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
 	public ModelAndView memberMypageGet(ModelAndView mv) {
-		mv.setViewName("/member/mypage");
+		mv.setViewName("member/mypage");
 		return mv;
 	}
 	@RequestMapping(value = "/member/mypage", method = RequestMethod.POST)
@@ -83,6 +83,13 @@ public class HomeController {
 			}
 		}
 		mv.setViewName("redirect:/member/mypage");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/signout", method = RequestMethod.GET)
+	public ModelAndView signoutGet(ModelAndView mv, HttpServletRequest request) {
+		request.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 }
