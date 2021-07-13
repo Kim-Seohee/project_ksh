@@ -64,7 +64,8 @@ public class BoardController {
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
-		boardService.insertBoard(board);
+		MemberVO user = memberService.getMember(r);
+		boardService.insertBoard(board, user);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
