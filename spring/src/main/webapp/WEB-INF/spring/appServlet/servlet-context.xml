@@ -25,11 +25,28 @@
 	
 	<beans:bean id="loginInterceptor" 
 		class="kr.green.spring.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="memberInterceptor" 
+		class="kr.green.spring.interceptor.MemberInterceptor"></beans:bean>
+		<beans:bean id="nonMemberInterceptor" 
+		class="kr.green.spring.interceptor.NonMemberInterceptor"></beans:bean>
 	
 	<interceptors>
 	    <interceptor>
 	        <mapping path="/signin"/>
 	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/board/register"/> <!-- 회원만 접근할 수 있는 페이지들 -->
+	        <mapping path="/board/modify"/>
+	        <mapping path="/board/delete"/>
+	        <!-- <mapping path="/board/*"/> 식의 표현도 가능하다 -->
+	        <mapping path="/member/mypage"/>
+	        <beans:ref bean="memberInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/signin"/> <!-- 비회원만 접근할 수 있는 페이지들 -->
+	        <mapping path="/signup"/>
+	        <beans:ref bean="nonMemberInterceptor"/>
 	    </interceptor>
 	</interceptors>
 	
