@@ -32,5 +32,6 @@
 		</li>
 	</ul>
 </nav>
+${user}
 </body>
 </html>

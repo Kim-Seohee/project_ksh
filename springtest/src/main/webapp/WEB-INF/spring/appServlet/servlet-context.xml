@@ -20,9 +20,16 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+	<beans:bean id="loginInterceptor" 
+		class="kr.green.test.interceptor.LoginInterceptor"></beans:bean>
 	<context:component-scan base-package="kr.green.test.*" />
 	
+	<interceptors>
+    <interceptor>
+        <mapping path="/member/signin"/>
+        <beans:ref bean="loginInterceptor"/>
+    </interceptor>
+</interceptors>
 	
 	
 </beans:beans>

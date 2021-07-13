@@ -14,10 +14,6 @@
 <form class="container" method="post" action="<%=request.getContextPath()%>/board/register">
 	<h1>게시글 등록</h1>
 	<div class="form-group">
-	  <label>글쓴이</label>
-	  <input type="text" class="form-control" name="writer">
-	</div>
-	<div class="form-group">
 	  <label>제목</label>
 	  <input type="text" class="form-control" name="title">
 	</div>
