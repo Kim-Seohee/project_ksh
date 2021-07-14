@@ -39,7 +39,7 @@
 	</div>
 	<div class="input-group">
 		<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-danger">목록</button></a>
-		<c:if test="${board != null}"> <!--게시글이 있을 때만 수정,삭제 버튼을 보여줌-->
+		<c:if test="${board != null && user.id eq board.writer}"> <!--게시글이 있을 때만, 또 글을 쓴 사용자일때만 수정,삭제 버튼을 보여줌-->
 			<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-danger">수정</button></a>
 			<form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">
 				<input type="hidden" value="${board.num}" name="num">

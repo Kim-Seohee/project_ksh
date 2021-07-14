@@ -1,5 +1,7 @@
 package kr.green.test.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +59,35 @@ public class MemberController {
 		}else {
 			mv.setViewName("redirect:/member/signup");		
 		}
+		return mv;
+	}
+	
+	@GetMapping(value="/member/mypage")
+	public ModelAndView mypageGet(ModelAndView mv) {
+		mv.setViewName("member/mypage");
+		return mv;
+	}
+	
+	@PostMapping(value="/member/mypage")
+	public ModelAndView mypagePost(ModelAndView mv, MemberVO user, HttpServletRequest request) {
+		// user: 화면에서 보낸 회원 정보, 정상적이라면 바로 수정해도 되지만 개발자 도구를 이용하여 잘못된 정보를 보낼 수 있기 때문에 바로 수정하면 안된다.
+		MemberVO sessionUser = memberService.getMember(request);
+		MemberVO updatedUser = memberService.updateMember(user, sessionUser);
+		// sessionUser는 현재 로그인된 회원 정보
+		// updatedUser는 업데이트된 회원 정보로 user의 아이디와 sessionUser의 아이디가 일치하지 않으면 null, 일치하면 업데이트된 회원 정보 반환
+		
+		if(updatedUser != null) {
+			request.getSession().setAttribute("user", updatedUser);
+		}
+		
+		mv.setViewName("redirect:/member/mypage");
+		return mv;
+	}
+	
+	@GetMapping(value="/member/signout")
+	public ModelAndView signoutGet(ModelAndView mv, HttpServletRequest request) {
+		request.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 }

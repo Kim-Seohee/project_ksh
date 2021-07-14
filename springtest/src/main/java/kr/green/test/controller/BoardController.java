@@ -79,22 +79,34 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board) {
-		int res = boardService.updateBoard(board);
-		String msg = res !=0 ? board.getNum() + "번 게시글이 수정되었습니다." : "없는 게시글입니다.";
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
+		MemberVO user = memberService.getMember(r);
+		int res = boardService.updateBoard(board, user);
+		String msg = "";
+		mv.setViewName("redirect:/board/detail");
+		if(res == 1) {
+			msg = board.getNum() + "번 게시글이 수정되었습니다.";
+		}else if(res == 0) {
+			msg = "없는 게시글입니다.";
+		}else if(res == -1) {
+			msg = "잘못된 접근입니다.";
+			mv.setViewName("redirect:/board/list");
+		}
 		mv.addObject("msg", msg);
 		mv.addObject("num", board.getNum());
-		mv.setViewName("redirect:/board/detail");
 		return mv;
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public ModelAndView boardDeletePost(ModelAndView mv, Integer num) {
-		int res = boardService.deleteBoard(num);
-		if(res != 0) {
+	public ModelAndView boardDeletePost(ModelAndView mv, Integer num, HttpServletRequest r) {
+		MemberVO user = memberService.getMember(r);
+		int res = boardService.deleteBoard(num, user);
+		if(res == 1) {
 			mv.addObject("msg", num + "번 게시글을 삭제했습니다.");
-		}else {
+		}else if(res == 0) {
 			mv.addObject("msg", "게시글이 없거나 이미 삭제되었습니다.");
+		}else if(res == -1) {
+			mv.addObject("msg", "잘못된 접근입니다.");
 		}
 		mv.setViewName("redirect:/board/list");
 		return mv;
