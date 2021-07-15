@@ -107,8 +107,8 @@ public class BoardController {
 	@RequestMapping(value="/board/modify", method=RequestMethod.POST)
 	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request, MultipartFile file) {
 		// 서비스에게 게시글을 주면서 수정하라고 요청
-		// detail로 이동
 		mv.addObject("num", board.getNum());
+		// detail로 이동
 		mv.setViewName("redirect:/board/detail");
 		MemberVO user = memberService.getMember(request);
 		if(!user.getId().equals(board.getWriter())) {
