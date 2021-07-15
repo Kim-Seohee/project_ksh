@@ -7,7 +7,7 @@
 
 </head>
 <body>
-<form class="container" method="post" action="<%=request.getContextPath()%>/board/modify">
+<form class="container" method="post" action="<%=request.getContextPath()%>/board/modify" enctype="multipart/form-data">
  	<h2>게시글 수정</h2>
   	<div class="form-group">
 		<label>제목</label>
@@ -23,7 +23,28 @@
 	</div>
 	<input type="hidden" value="${board.num}" name="num">
 	<input type="hidden" value="${board.views}" name="views">
+	<c:if test="${file != null}">
+		<div class="form-group file-box">
+			<label>첨부파일</label>
+			<div class="form-control">${file.ori_name}<button type="button" class="btn-outline-info del-btn">X</button></div>
+		</div>
+	</c:if>
+	<c:if test="${file == null}">
+		<div class="form-group">
+	        <label>파일</label>
+	        <input type="file" class="form-control" name="file"/>
+	    </div>
+	</c:if>
 	<button type="submit" class="btn btn-outline-success">등록</button>
 </form>
+<script type="text/javascript">
+	$(function(){
+		$('.del-btn').click(function(){
+			var str = '<input type="file" class="form-control" name="file"/>'
+			$(this).parent().remove();
+			$('.file-box').append(str);
+		})
+	})
+</script>
 </body>
 </html>
