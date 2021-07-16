@@ -145,4 +145,11 @@ public class BoardServiceImp implements BoardService {
 	    }
 		return entity;
 	}
+
+	@Override
+	public ArrayList<FileVO> getFileVOList(Integer num) {
+		if(num == null)
+			return null;
+		return boardDao.getFileVOList(num);
+	}
 }

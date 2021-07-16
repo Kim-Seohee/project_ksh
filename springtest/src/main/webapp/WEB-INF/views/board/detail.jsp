@@ -33,6 +33,14 @@
 	  <label>내용</label>
 	  <textarea name="contents" class="form-control" readonly rows="10">${board.contents}</textarea>
 	</div>
+	<c:if test="${fileList.size() != 0 }">
+		<div class="form-group">
+			<label>첨부파일</label>
+			<c:forEach items="${fileList}" var="file">
+				<a href="<%=request.getContextPath()%>/board/download?fileName=${file.name}" class="form-control mb-2">${file.ori_name}</a>
+			</c:forEach>
+		</div>
+	</c:if>
 	<div class="input-group">
 		<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-danger">목록</button></a>
 		<c:if test="${board != null && user.id eq board.writer}"> <!--게시글이 있을 때만, 또 글을 쓴 사용자일때만 수정,삭제 버튼을 보여줌-->

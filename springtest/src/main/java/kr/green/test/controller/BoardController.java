@@ -18,6 +18,7 @@ import kr.green.test.pagination.PageMaker;
 import kr.green.test.service.BoardService;
 import kr.green.test.service.MemberService;
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
 import lombok.extern.log4j.Log4j;
 
@@ -57,6 +58,8 @@ public class BoardController {
 		// log.info(board);
 		// 화면에 게시글을 출력
 		mv.addObject("board", board);
+		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
+		mv.addObject("fileList",fileList);
 		mv.addObject("msg", msg);
 		mv.setViewName("/template/board/detail");
 		return mv;

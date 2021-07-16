@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.test.pagination.Criteria;
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
 
 public interface BoardService {
@@ -27,5 +28,7 @@ public interface BoardService {
 	int getTotalCount(Criteria cri);
 
 	ResponseEntity<byte[]> downloadFile(String fileName) throws IOException;
+
+	ArrayList<FileVO> getFileVOList(Integer num);
 
 }
