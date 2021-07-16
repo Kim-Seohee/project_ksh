@@ -4,12 +4,11 @@
 <!doctype html>
 <html>
 <head>
-
 </head>
 <body>
 <form class="container" method="post" action="<%=request.getContextPath()%>/board/register" enctype="multipart/form-data">
- 	<h2>게시글 등록</h2>
-  	<div class="form-group">
+	<h2>게시글 등록</h2>
+	<div class="form-group">
 		<label>제목</label>
 		<input type="text" class="form-control" name="title">
 	</div>
@@ -17,38 +16,35 @@
 		<label>내용</label>
 		<textarea class="form-control" rows="10" name="contents"></textarea>
 	</div>
-	 <!-- 파일 업로드창 추가 -->
-    <div class="form-group files">
+	<div class="form-group  files">
         <label>파일</label>
-        <input type="file" class="form-control file" name="file" data=""/>
+        <input type="file" class="form-control" name="file" data=""/>
     </div>
 	<button type="submit" class="btn btn-outline-success">등록</button>
 </form>
 <script type="text/javascript">
-	$(function(){
-		$(document).on('change', '.file', function(){
-			var str = '<input type="file" class="form-control file" name="file" data=""/>';
-			var val = $(this).val();
-			var length = $('.file').length;
-			var data = $(this).attr('data');
-			console.log(val);
-			// val이 빈 문자열이 아닐 때
-			// input 태그를 추가해야 하는 경우
-			if(val != ''){
-				if(length < 3 && data == ''){
-					$('.files').append(str);
-				}
-				$(this).attr('data',val);
+$(function(){
+	$(document).on('change','input[name=file]',function(){
+		var val = $(this).val();
+		var str = '<input type="file" class="form-control" name="file" data=""/>';
+		var length = $('input[name=file]').length;
+		var data = $(this).attr('data');
+		//
+		if(val == ''){
+			$(this).remove();
+			if(length == 3 && $('input[name=file]').last().val() != '' ){
+				$('.files').append(str);
 			}
-			// val이 빈 문자열일 때
-			if(val == ''){
-				$(this).remove();
-				if(length == 3 && $('.file').last().val() != ''){
-					$('.files').append(str);					
-				}
+		}
+		//input 태그를 추가해야하는 경우
+		else{
+			if( length < 3 && data == '' ){
+				$('.files').append(str);
 			}
-		});
+			$(this).attr('data',val);
+		}
 	})
+})
 </script>
 </body>
 </html>

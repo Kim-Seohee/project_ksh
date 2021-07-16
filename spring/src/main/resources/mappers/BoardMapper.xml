@@ -4,28 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.spring.dao.BoardDAO">
 	<select id="getBoardList" resultType="kr.green.spring.vo.BoardVO">
-		select * from board 
-			where 
-				valid = 'I'
-				<if test="cri.type==0">
-					and ( contents like concat('%',#{cri.search},'%')
-					or title like concat('%',#{cri.search},'%')
-					or writer like concat('%',#{cri.search},'%') )
-				</if>
-				<if test="cri.type==1">
-					and ( contents like concat('%',#{cri.search},'%')
-					or title like concat('%',#{cri.search},'%') )
-				</if>
-				<if test="cri.type==2">
-					and writer like concat('%',#{cri.search},'%')
-				</if>
+		select * from board
+			where valid = 'I' 
+			<if test="cri.type==0">
+				and (contents like concat('%',#{cri.search},'%')
+				or title like concat('%',#{cri.search},'%')
+				or writer like concat('%',#{cri.search},'%'))
+			</if>
+			<if test="cri.type==1">
+				and (contents like concat('%',#{cri.search},'%')
+				or title like concat('%',#{cri.search},'%'))
+			</if>
+			<if test="cri.type==2">
+				and writer like concat('%',#{cri.search},'%')
+			</if>
 			order by num desc
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getBoard" resultType="kr.green.spring.vo.BoardVO">
 		select * from board where num = #{num} and valid = 'I'
 	</select>
-	<insert id="insertBoard" useGeneratedKeys="true" parameterType="kr.green.spring.vo.BoardVO" keyProperty="board.num"> <!-- 게시글 번호를 넘겨줌 -->
+	<insert id="insertBoard" useGeneratedKeys="true" parameterType="kr.green.spring.vo.BoardVO" keyProperty="board.num">
 		insert into board(title,writer,contents)
 		values(#{board.title}, #{board.writer}, #{board.contents})
 	</insert>
@@ -38,22 +37,22 @@
 		where num = #{board.num}
 	</update>
 	<select id="getTotalCount" resultType="int">
-		select count(*) from board where valid = "I"
+		select count(*) from board where valid = 'I'
 		<if test="cri.type==0">
-			and ( contents like concat('%',#{cri.search},'%')
+			and (contents like concat('%',#{cri.search},'%')
 			or title like concat('%',#{cri.search},'%')
-			or writer like concat('%',#{cri.search},'%') )
+			or writer like concat('%',#{cri.search},'%'))
 		</if>
 		<if test="cri.type==1">
-			and ( contents like concat('%',#{cri.search},'%')
-			or title like concat('%',#{cri.search},'%') )
+			and (contents like concat('%',#{cri.search},'%')
+			or title like concat('%',#{cri.search},'%'))
 		</if>
 		<if test="cri.type==2">
 			and writer like concat('%',#{cri.search},'%')
 		</if>
 	</select>
 	<insert id="insertFile">
-		insert into file(board, name, ori_name)
+		insert into file(board,name,ori_name)
 			values(#{file.board}, #{file.name}, #{file.ori_name})
 	</insert>
 	<select id="getFileVOList" resultType="kr.green.spring.vo.FileVO">

@@ -4,13 +4,12 @@
 <!doctype html>
 <html>
 <head>
-
 </head>
 <body>
 <c:if test="${board != null}">
 <div class="container">
- 	<h2>게시판</h2>
-  	<div class="form-group">
+	<h2>게시판</h2>
+	<div class="form-group">
 		<label>제목</label>
 		<input type="text" class="form-control" value="${board.title}" readonly>
 	</div>
@@ -21,7 +20,7 @@
 	<div class="form-group">
 		<label>작성일</label>
 		<input type="text" class="form-control" value="${board.registeredDate}" readonly>
-		<!-- board.getRegisteredDate가 호출된다. -->
+		<!-- ${board.getRegisteredDate()} -->
 	</div>
 	<div class="form-group">
 		<label>조회수</label>
@@ -31,7 +30,7 @@
 		<label>내용</label>
 		<textarea class="form-control" readonly>${board.contents}</textarea>
 	</div>
-	<c:if test="${fileList.size() != 0}">
+	<c:if test="${fileList.size() != 0 }">
 		<div class="form-group">
 			<label>첨부파일</label>
 			<c:forEach items="${fileList}" var="file">
@@ -39,14 +38,16 @@
 			</c:forEach>
 		</div>
 	</c:if>
-	<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><button class="btn btn-outline-success">수정</button></a>
-	<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-success">삭제</button></a>
+	<c:if test="${user != null && user.id == board.writer}">
+		<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><button class="btn btn-outline-success">수정</button></a>
+		<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-success">삭제</button></a>
+	</c:if>
 	<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-success">목록</button></a>
 </div>
 </c:if>
-<c:if test="${board == null}">
+<c:if test="${board ==null}">
 <div class="container">
-	<h1>삭제되었거나 존재하지 않는 게시글입니다.</h1>
+	<h1>삭제되거나 존재하지 않은 게시글입니다.</h1>
 	<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-success">목록</button></a>
 </div>
 </c:if>
