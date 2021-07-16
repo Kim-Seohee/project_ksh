@@ -5,14 +5,20 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.green.test.pagination.*;
-import kr.green.test.service.*;
-import kr.green.test.vo.*;
+import kr.green.test.pagination.Criteria;
+import kr.green.test.pagination.PageMaker;
+import kr.green.test.service.BoardService;
+import kr.green.test.service.MemberService;
+import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.MemberVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -37,7 +43,7 @@ public class BoardController {
 		mv.addObject("list", list);
 		mv.addObject("msg", msg);
 		mv.addObject("pm", pm);
-		mv.setViewName("board/list");
+		mv.setViewName("/template/board/list");
 		return mv;
 	}
 	
@@ -52,20 +58,20 @@ public class BoardController {
 		// 화면에 게시글을 출력
 		mv.addObject("board", board);
 		mv.addObject("msg", msg);
-		mv.setViewName("board/detail");
+		mv.setViewName("/template/board/detail");
 		return mv;
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView boardRegisterGet(ModelAndView mv) {
-		mv.setViewName("board/register");
+		mv.setViewName("/template/board/register");
 		return mv;
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
+	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest r, MultipartFile[] files) {
 		MemberVO user = memberService.getMember(r);
-		boardService.insertBoard(board, user);
+		boardService.insertBoard(board, user, files);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
@@ -74,7 +80,7 @@ public class BoardController {
 	public ModelAndView boardModifyGet(ModelAndView mv, Integer num) {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board", board);
-		mv.setViewName("board/modify");
+		mv.setViewName("/template/board/modify");
 		return mv;
 	}
 	
@@ -111,5 +117,11 @@ public class BoardController {
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping("/board/download")
+	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
+		ResponseEntity<byte[]> entity = boardService.downloadFile(fileName);
+	    return entity;
+	}
 }

@@ -47,4 +47,31 @@
 	        <beans:ref bean="nonMemberInterceptor"/>
 	    </interceptor>
 	</interceptors>
+	
+	<!-- 타일즈 -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+    <beans:property name="order" value="1" /><!-- 순서를 우선으로 지정 -->
+	</beans:bean>
+	     
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	    <beans:property name="definitions">
+	        <beans:list>
+	            <beans:value>/WEB-INF/spring/tiles-def.xml</beans:value>
+	        </beans:list>
+	    </beans:property>
+	</beans:bean>
+
+	<!-- 첨부파일 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!-- 업로드 최대 크기 10Mb -->
+	    <beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="uploadPath" class="java.lang.String">
+	    <!--
+		<beans:constructor-arg value="서버에 저장할 경로"></beans:constructor-arg>
+		-->
+	    <beans:constructor-arg value="C:\\JAVA_KSH\\uploadfiles"></beans:constructor-arg>
+	</beans:bean>
 </beans:beans>

@@ -33,7 +33,7 @@
 			valid = #{board.valid}
 		where num = #{board.num}
 	</update>
-	<insert id="insertBoard">
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.num" parameterType="kr.green.test.vo.BoardVO">
 		insert into board(title, writer, contents)
 		values(#{board.title}, #{board.writer}, #{board.contents})
 	</insert>
@@ -51,5 +51,12 @@
 		<if test="cri.type==2">
 			and writer like concat('%',#{cri.search},'%')
 		</if>
+	</select>
+	<insert id="insertFile">
+		insert into file(board,name,ori_name)
+			values(#{file.board}, #{file.name}, #{file.ori_name})
+	</insert>
+	<select id="getFileVOList" resultType="kr.green.test.vo.FileVO">
+		select * from file where state = 'I' and board = #{num}
 	</select>
 </mapper>
