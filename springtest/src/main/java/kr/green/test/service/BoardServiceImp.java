@@ -97,19 +97,44 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int updateBoard(BoardVO board, MemberVO user) {
-		if(board == null) {
+	public int updateBoard(BoardVO board, MemberVO user, MultipartFile[] files, Integer[] filenums) {
+		if(board == null || board.getNum() <= 0) {
 			return 0;
 		}
 		if(user == null) {
 			return -1;
 		}
 		BoardVO dbBoard = boardDao.getBoard(board.getNum());
-		if(!user.getId().equals(dbBoard.getWriter())) {
+		if(dbBoard == null ||!user.getId().equals(dbBoard.getWriter())) {
 			return -1;
 		}
+		
+		// 기존 첨부파일 중 정보가 넘어오지 않는 첨부파일 삭제(화면에서 첨부파일 옆에 있는 X버튼 클릭)
+		// 기존 첨부파일 가져옴
+		ArrayList<FileVO> dbFileList = boardDao.getFileVOList(dbBoard.getNum());
+		// 화면에서 가져온 첨부파일을 배열에서 리스트로 변경해준다.(리스트에서 제공하는 contains를 이용하기 위하여)
+		ArrayList<Integer> arrayFilenums = new ArrayList<Integer>();
+		if(filenums != null) {
+			for(int tmp : filenums) {
+				arrayFilenums.add(tmp);
+			}
+		}
+		// 기존 첨부파일 중에서 화면에서 가져온 첨부파일에 번호가 없으면 해당 첨부파일 삭제
+		for(FileVO tmp : dbFileList) {
+			if(!arrayFilenums.contains(tmp.getNum())) {
+				deleteFileVO(tmp);
+			}
+		}
+		// 새로운 첨부파일 추가
+		if(files != null && files.length !=0) {
+			for(MultipartFile file : files) {
+				insertFile(file, board.getNum());
+			}
+		}
+		
 		dbBoard.setContents(board.getContents());
 		dbBoard.setTitle(board.getTitle());
+
 		return boardDao.updateBoard(dbBoard);
 	}
 
@@ -159,7 +184,7 @@ public class BoardServiceImp implements BoardService {
 	private void insertFile(MultipartFile file, int num) {
 		if(file != null && file.getOriginalFilename().length() != 0) {
 			try {
-				//첨부파일을 업로드 한 후 경로를 반환해서 ori_name에 저장
+				//첨부파일을 업로드 한 후 경로를 반환해서 name에 저장
 				String name = UploadFileUtils.uploadFile(uploadPath, 
 						file.getOriginalFilename(), file.getBytes());
 				//첨부파일 객체 생성

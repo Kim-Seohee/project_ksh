@@ -80,17 +80,25 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public ModelAndView boardModifyGet(ModelAndView mv, Integer num) {
+	public ModelAndView boardModifyGet(ModelAndView mv, Integer num, HttpServletRequest request) {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board", board);
-		mv.setViewName("/template/board/modify");
+		mv.setViewName("/template/board/modify");		
+		MemberVO user = memberService.getMember(request);
+		if(board == null || !board.getWriter().equals(user.getId())) {
+			mv.setViewName("/template/board/list");			
+		}
+		// 첨부 파일 가져옴
+		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
+		// 화면에 첨부파일 전송
+		mv.addObject("fileList",fileList);
 		return mv;
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest r, MultipartFile[] files, Integer[] filenums) {
 		MemberVO user = memberService.getMember(r);
-		int res = boardService.updateBoard(board, user);
+		int res = boardService.updateBoard(board, user, files, filenums);
 		String msg = "";
 		mv.setViewName("redirect:/board/detail");
 		if(res == 1) {
@@ -107,7 +115,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public ModelAndView boardDeletePost(ModelAndView mv, Integer num, HttpServletRequest r, MultipartFile[] files) {
+	public ModelAndView boardDeletePost(ModelAndView mv, Integer num, HttpServletRequest r) {
 		MemberVO user = memberService.getMember(r);
 		int res = boardService.deleteBoard(num, user);
 		if(res == 1) {
