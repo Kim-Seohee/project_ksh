@@ -107,7 +107,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public ModelAndView boardDeletePost(ModelAndView mv, Integer num, HttpServletRequest r) {
+	public ModelAndView boardDeletePost(ModelAndView mv, Integer num, HttpServletRequest r, MultipartFile[] files) {
 		MemberVO user = memberService.getMember(r);
 		int res = boardService.deleteBoard(num, user);
 		if(res == 1) {

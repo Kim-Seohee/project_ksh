@@ -52,7 +52,7 @@
 	    <!--
 		<beans:constructor-arg value="서버에 저장할 경로"></beans:constructor-arg>
 		-->
-	    <beans:constructor-arg value="C:\\JAVA_KSH\\uploadfiles"></beans:constructor-arg>
+	    <beans:constructor-arg value="D:\\JAVA_KSH\\uploadfiles"></beans:constructor-arg>
 	</beans:bean>
 		
 	<interceptors>

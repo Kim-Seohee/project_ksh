@@ -1,3 +1,4 @@
+
 package kr.green.test.service;
 
 import java.io.IOException;
@@ -19,16 +20,16 @@ public interface BoardService {
 
 	int updateViews(Integer num);
 
-	void insertBoard(BoardVO board, MemberVO user, MultipartFile[] files);
-
-	int updateBoard(BoardVO board, MemberVO user);
+	void insertBoard(BoardVO board, MemberVO user, MultipartFile[] files) ;
 
 	int deleteBoard(Integer num, MemberVO user);
 
+	int updateBoard(BoardVO board, MemberVO user);
+
 	int getTotalCount(Criteria cri);
 
-	ResponseEntity<byte[]> downloadFile(String fileName) throws IOException;
-
 	ArrayList<FileVO> getFileVOList(Integer num);
+
+	ResponseEntity<byte[]> downloadFile(String fileName) throws IOException;
 
 }

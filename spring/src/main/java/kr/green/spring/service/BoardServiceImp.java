@@ -26,7 +26,7 @@ import kr.green.spring.vo.MemberVO;
 public class BoardServiceImp implements BoardService {
 	@Autowired
 	BoardDAO boardDao;
-	private String uploadPath="C:\\JAVA_KSH\\uploadfiles";
+	private String uploadPath="D:\\JAVA_KSH\\uploadfiles";
 
 	@Override
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {
