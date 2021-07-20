@@ -1,18 +1,16 @@
 package kr.green.spring.controller;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,7 +35,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/list")
 	public ModelAndView boardList(ModelAndView mv, Criteria cri) {
-		log.info(cri);
+		//log.info(cri);
 		PageMaker pm = new PageMaker();
 		cri.setPerPageNum(2);
 		pm.setCriteria(cri);
@@ -45,7 +43,7 @@ public class BoardController {
 		int totalCount = boardService.getTotalCount(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
-		log.info(pm);
+		//log.info(pm);
 		//서비스에게 모든 게시글을 가져오라고 시킴
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		//화면에 모든 게시글을 전송
@@ -132,5 +130,18 @@ public class BoardController {
 	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
 		ResponseEntity<byte[]> entity = boardService.downloadFile(fileName);
 	    return entity;
+	}
+	
+	@ResponseBody
+	@GetMapping("/board/recommend/{state}/{board}")
+	public Map<String,Object> boardRecommend(@PathVariable("state") int state, @PathVariable("board") int board, HttpServletRequest r){
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		MemberVO user = memberService.getMember(r); // 로그인한 회원만 추천 비추천이 가능하게
+		// 추천/비추천했으면 1, 취소했으면 0, 로그인 안 했으면 -1
+		int res = boardService.updateRecommend(user, board, state);
+		map.put("state", state);
+		map.put("board", board);
+		map.put("result", res);
+	    return map;
 	}
 }
