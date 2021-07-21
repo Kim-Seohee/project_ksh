@@ -49,9 +49,13 @@
 	<div class="reply form-group">
 		<label>댓글</label>
 		<div class="contents">
-			<div class="reply-list">
-				
+			<div class="reply-list">	
 			</div>
+			<!-- 페이지네이션 추가 -->
+			<ul class="pagination justify-content-center">
+				
+			</ul>
+			
 			<div class="reply-box form-group">
 				<textarea class="reply-input form-control mb-2"></textarea>
 				<button type="button" class="reply-btn btn btn-outline-primary">등록</button>
@@ -145,7 +149,7 @@
 				success: function(result, status, xhr){
 					if(result == 'ok'){
 						alert('댓글 등록이 완료되었습니다.')
-						readReply();
+						readReply('${board.num}', 1);
 					}
 				},
 				error: function(xhr, status, e){
@@ -153,12 +157,12 @@
 				}
 			})
 		})
-		readReply();
+		readReply('${board.num}', 2);
 	})
-	function readReply(){
+	function readReply(rp_bd_num, page){
 		$.ajax({
 			type: 'get',
-			url: '<%=request.getContextPath()%>/reply/list/' + '${board.num}',
+			url: '<%=request.getContextPath()%>/reply/list/' + rp_bd_num + '/' + page,
 			dataType: "json",
 			success: function(result, status, xhr){
 				var list = result['list'];
@@ -172,7 +176,18 @@
 					
 				}
 				$('.reply-list').html(str); // 기존에 있는 정보를 덮어쓰기한다(append가 아님)
-				
+				var pm = result['pm'];
+				var pmStr = '';
+				if(pm['prev']){
+					pmStr += '<li class="page-item" data="' + (pm['startPage'] - 1) + '"><a class="page-link" href="javascript:void(0);">이전</a></li>';					
+				}
+				for(i = pm['startPage']; i <= pm['endPage']; i++){
+					pmStr += '<li class="page-item" data="' + i + '"><a class="page-link" href="javascript:void(0);">' + i + '</a></li>';
+				}				
+				if(pm['next']){
+					pmStr += '<li class="page-item" data="' + (pm['endPage'] + 1) + '"><a class="page-link" href="javascript:void(0);">다음</a></li>';					
+				}
+				$('.pagination').html(pmStr);
 			},
 			error: function(xhr, status, e){
 				
