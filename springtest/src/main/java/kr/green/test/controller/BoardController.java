@@ -1,12 +1,16 @@
 package kr.green.test.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +24,7 @@ import kr.green.test.service.MemberService;
 import kr.green.test.vo.BoardVO;
 import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
+import kr.green.test.vo.RecommendVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -49,7 +54,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/detail")
-	public ModelAndView boardDetail(ModelAndView mv, Integer num, String msg) {
+	public ModelAndView boardDetail(ModelAndView mv, Integer num, String msg, HttpServletRequest r) {
 //		log.info("test");
 //		log.info(num);
 		boardService.updateViews(num);
@@ -60,6 +65,10 @@ public class BoardController {
 		mv.addObject("board", board);
 		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
 		mv.addObject("fileList",fileList);
+		
+		MemberVO user = memberService.getMember(r);
+		RecommendVO rvo = boardService.getRecommend(num, user);
+		mv.addObject("recommend", rvo);
 		mv.addObject("msg", msg);
 		mv.setViewName("/template/board/detail");
 		return mv;
@@ -130,9 +139,22 @@ public class BoardController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/board/download")
+	@RequestMapping("/download")
 	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
 		ResponseEntity<byte[]> entity = boardService.downloadFile(fileName);
 	    return entity;
+	}
+	
+	@ResponseBody
+	@GetMapping("/recommend/{state}/{board}")
+	public Map<String,Object> boardRecommend(@PathVariable("state") int state, @PathVariable("board") int board, HttpServletRequest r){
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		MemberVO user = memberService.getMember(r); // 로그인한 회원만 추천 비추천이 가능하게
+		// 추천/비추천했으면 1, 취소했으면 0, 로그인 안 했으면 -1
+		int res = boardService.updateRecommend(user, board, state);
+		map.put("state", state);
+		map.put("board", board);
+		map.put("result", res);
+	    return map;
 	}
 }

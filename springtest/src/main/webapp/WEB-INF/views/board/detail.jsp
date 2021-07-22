@@ -6,6 +6,14 @@
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<style>
+	 	.recommend-btn{
+	 		font-size: 30px;	
+	 	}
+	 	.fa-thumbs-down{
+	 		transform: rotateY(180deg);
+	 	}
+	</style>
 </head>
 <body>
 <div class="container">
@@ -25,6 +33,14 @@
 	<div class="form-group">
 	  <label>조회수</label>
 	  <input type="text" class="form-control" name="views" readonly value="${board.views}">
+	</div>
+	<div class="form-group">
+		<a href="#" class="recommend-btn up">
+			<i class="<c:choose><c:when test="${recommend != null && recommend.state==1}">fas</c:when><c:otherwise>far</c:otherwise></c:choose> fa-thumbs-up"></i>
+		</a>
+		<a href="#" class="recommend-btn down">
+			<i class="<c:choose><c:when test="${recommend != null && recommend.state==-1}">fas</c:when><c:otherwise>far</c:otherwise></c:choose> fa-thumbs-down"></i>
+		</a>
 	</div>
 	<div class="form-group">
 	  <label>제목</label>
@@ -58,6 +74,52 @@
 		var msg = '${msg}';
 		printMsg(msg);
 		history.replaceState({},null,null); // history를 비워줌
+		$('.recommend-btn').click(function(e){
+			e.preventDefault();
+			// 추천 버튼이면 state를 1로, 비추천 버튼이면 state를 -1로
+			var state = $(this).hasClass('up')? 1 : -1;
+			var board = '<c:out value="${board.num}"/>';
+			var obj = $(this);
+			$.ajax({
+				type: 'get',
+				url: '<%=request.getContextPath()%>/board/recommend/' + state + '/' + board,
+				dataType: "json",
+				success: function(res, status, xhr){
+					$('.recommend-btn i').removeClass('fas').addClass('far');
+					var str = '';
+					var str2 = '';
+					if(state == 1){
+						str2 = '추천';
+					}else{
+						str2 = '비추천';
+					}
+					
+					if(res.result == 0){
+						str = '이 취소되었습니다.';
+					}else if(res.result == 1){
+						str = '을 했습니다.';
+						if(state == 1){
+							$('.recommend-btn.up i').addClass('fas');
+						}else if(state == -1){
+							$('.recommend-btn.down i').addClass('fas');
+						}
+					}else{
+						str = '추천/비추천은 회원만 가능합니다.';
+					}
+					
+					if(res.result != -1){
+						alert(str2 + str);
+					}else{
+						alert(str);
+					}
+					
+					
+					
+				},
+				error: function(xhr, status, error){
+				}
+			})
+		})
 	})
 	function printMsg(msg){
 		if(msg == '' || history.state){

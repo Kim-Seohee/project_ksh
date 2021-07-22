@@ -21,6 +21,7 @@ import kr.green.test.utils.UploadFileUtils;
 import kr.green.test.vo.BoardVO;
 import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
+import kr.green.test.vo.RecommendVO;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -195,5 +196,41 @@ public class BoardServiceImp implements BoardService {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public int updateRecommend(MemberVO user, int board, int state) {
+		if(user == null)
+			return -1;
+		// 게시글 번호와 유저 아이디를 이용하여 추천/비추천한 적이 있는지 확인
+		RecommendVO rvo = boardDao.getRecommend(user.getId(), board);
+		// 없으면 추가하고 1을 리턴
+		if(rvo == null) {
+			boardDao.insertRecommend(user.getId(), board, state);
+			return 1;
+		}
+		// 있으면
+		else {
+			// 기존 state 정보와 누른 버튼 정보를 비교하여 같으면 state를 0으로 수정, 0을 리턴
+			// (추천누르고 추천, 비추천누르고 비추천)
+			if(state == rvo.getState()) {
+				rvo.setState(0);;
+				boardDao.updateRecommend(rvo);
+				return 0;
+			}
+			// 다르면 누른 버튼 정보로 수정하고 1을 리턴(추천 누르고 비추천, 비추천누르고 추천)
+			else {
+				rvo.setState(state);;
+				boardDao.updateRecommend(rvo);
+				return 1;
+			}
+		}
+	}
+
+	@Override
+	public RecommendVO getRecommend(Integer num, MemberVO user) {
+		if(num == null || user == null)
+			return null;
+		return boardDao.getRecommend(user.getId(), num);
 	}
 }
