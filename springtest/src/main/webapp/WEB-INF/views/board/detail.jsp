@@ -4,7 +4,8 @@
 <!doctype html>
 <html>
 <head>
-	
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -31,7 +32,7 @@
 	</div>
 	<div class="form-group">
 	  <label>내용</label>
-	  <textarea name="contents" class="form-control" readonly rows="10">${board.contents}</textarea>
+	  <div id="summernote" class="form-control">${board.contents}</div>
 	</div>
 	<c:if test="${fileList.size() != 0 }">
 		<div class="form-group">

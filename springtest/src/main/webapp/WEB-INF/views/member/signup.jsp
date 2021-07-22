@@ -13,6 +13,7 @@
 	<div class="form-group">
 		<label>아이디</label>
 		<input type="text" class="form-control" name="id">
+		<button id="dupCheck" type="button" class="col-12 btn btn-outline-success">아이디 중복 확인</button>
 	</div>
 	<div class="form-group">
 		<label>비밀번호</label>
@@ -67,6 +68,29 @@
 				alert('이메일을 입력하세요.');
 				return false;
 			}
+		})
+		
+	})
+	$(function(){
+		$('#dupCheck').click(function(){
+			var id = $('[name=id]').val();
+			if(id == ''){
+				alert('아이디를 입력하세요');
+				return;
+			}
+			$.ajax({
+				type: 'get',
+				url: '<%=request.getContextPath()%>/member/idcheck/' + id,
+				success: function(result, status, xhr){
+					if(result == "POSSIBLE")
+						alert('사용 가능한 아이디입니다.');
+					else
+						alert('사용 불가능한 아이디입니다.');
+				},
+				error: function(xhr, status, error){
+					
+				}
+			})
 		})
 	})
 </script>

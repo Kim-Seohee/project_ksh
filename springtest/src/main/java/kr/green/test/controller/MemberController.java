@@ -90,4 +90,12 @@ public class MemberController {
 		mv.setViewName("redirect:/");
 		return mv;
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "/member/idcheck/{id}")
+	public String memberIdcheckGet(@PathVariable("id") String id) {
+		MemberVO user = memberService.getMember(id);
+		String res = user != null? "IMPOSSIBLE" : "POSSIBLE";  
+		return res;
+	}
 }
