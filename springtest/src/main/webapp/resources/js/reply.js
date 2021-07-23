@@ -11,7 +11,7 @@ var replyService = (function(){
 			contentType: "application/json; charset=utf-8",
 			success: function(res){
 				if(res == 'OK'){
-					list(contextPath, data['rp_bd_num'], 1, user);
+					list(contextPath, data['rp_bd_num'], 1, data['rp_me_id']);
 					alert('댓글 등록이 완료되었습니다.');
 					$('.reply-input').val('');
 				}
@@ -34,9 +34,9 @@ var replyService = (function(){
 						'</div>';
 					if(user == list[i].rp_me_id){
 						str += '<div>';
-						str += '<button class="btn btn-outline-danger del-btn" data="' + list[i].rp_num + '">삭제</button>';
-						str += '<button class="btn btn-outline-danger mod-btn" data="' + list[i].rp_num + '">수정</button>';
-						str += '</div>'
+						str += '<button type = "button" class="btn btn-outline-danger del-btn" data="' + list[i].rp_num + '">삭제</button>';
+						str += '<button type = "button" class="btn btn-outline-danger mod-btn" data="' + list[i].rp_num + '">수정</button>';
+						str += '</div>';
 					}
 				}
 				str += '<hr style="background: red"/>';
@@ -60,9 +60,22 @@ var replyService = (function(){
 			}
 		})
 	}
+	function modify(contextPath, rp_content, rp_num, rp_bd_num){
+		$.ajax({
+				type: 'post',
+				url: contextPath + '/reply/mod',
+				data: JSON.stringify({'rp_num': rp_num, 'rp_content': rp_content}),
+				contentType: "application/json; charset=utf-8",
+				success: function(){
+					var page = $('.pagination .active').find('a').text();
+					list(contextPath, rp_bd_num, page, user);
+				}
+		})
+	}
 	return {
 		name: '서비스',
 		insert: insert,
-		list: list
+		list: list,
+		modify: modify
 	}
 })();

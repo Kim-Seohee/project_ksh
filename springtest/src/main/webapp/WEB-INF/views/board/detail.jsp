@@ -154,6 +154,26 @@
 			replyService.list(contextPath, '${board.num}', page, user);
 		})
 		
+		$(document).on('click', '.mod-btn', function(){
+			var rp_num = $(this).attr('data');
+			var content = $(this).parent().prev().children().last().text();
+			console.log(rp_num);
+			console.log(content);
+			var str =
+				'<div class="reply-mod-box form-group">' +
+					'<textarea class="reply-input form-control mb-2">' + content + '</textarea>' +
+					'<button type="button" class="reply-mod-btn btn btn-outline-dark" data="' + rp_num + '">등록</button>' +
+				'</div>';
+			$(this).parent().hide();
+			$(this).parent().prev().children().last().hide();
+			$(this).parent().prev().append(str);
+		})
+		$(document).on('click', '.reply-mod-btn', function(){
+			var rp_content = $(this).prev().val();
+			var rp_num = $(this).attr('data');
+			replyService.modify(contextPath, rp_content, rp_num, rp_bd_num);
+			
+		})
 		$('.reply-btn').click(function(){
 			var rp_bd_num = '${board.num}'; // 문법에 맞게 하기 위해 앞뒤로 따옴표를 붙여주는 것
 			var rp_me_id = '${user.id}';

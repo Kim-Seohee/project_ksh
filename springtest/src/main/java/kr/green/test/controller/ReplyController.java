@@ -3,6 +3,8 @@ package kr.green.test.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.green.test.pagination.Criteria;
 import kr.green.test.pagination.PageMaker;
+import kr.green.test.service.MemberService;
 import kr.green.test.service.ReplyService;
+import kr.green.test.vo.MemberVO;
 import kr.green.test.vo.ReplyVO;
 import lombok.AllArgsConstructor;
 
@@ -20,6 +24,7 @@ import lombok.AllArgsConstructor;
 public class ReplyController {
 	
 	private ReplyService replyService;
+	private MemberService memberService;
 	
 	@PostMapping(value="reply/ins")
 	public String replyInsPost(@RequestBody ReplyVO reply) {
@@ -42,5 +47,10 @@ public class ReplyController {
 		map.put("pm", pm);
 		map.put("replyList", list);
 		return map;
+	}
+	@PostMapping(value="reply/mod")
+	public String replyModPost(@RequestBody ReplyVO reply, HttpServletRequest r) {
+		MemberVO user = memberService.getMember(r);
+		return replyService.updateReply(reply, user);
 	}
 }
