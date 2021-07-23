@@ -65,6 +65,11 @@
 		<div class="contents">
 			<div class="reply-list"></div>
 			
+			<ul class="pagination justify-content-center">
+				
+			</ul>
+			
+			
 			<div class="reply-box form-group">
 				<textarea class="reply-input form-control mb-2"></textarea>
 				<button type="button" class="reply-btn btn btn-outline-dark">등록</button>
@@ -84,6 +89,13 @@
 	</div>
 </div>
 <script>
+	// 전역변수
+	// 게시글 번호
+	// 프로젝트명
+	// 유저 정보
+	var rp_bd_num = '${board.num}';
+	var contextPath = '<%=request.getContextPath()%>';
+	var user = '${user.id}';
 	$(function(){
 		var msg = '${msg}';
 		printMsg(msg);
@@ -134,6 +146,14 @@
 				}
 			})
 		})
+
+		replyService.list(contextPath, rp_bd_num, 1, user);
+		
+		$(document).on('click', '.pagination .page-item', function(){
+			var page = $(this).attr('data');
+			replyService.list(contextPath, '${board.num}', page, user);
+		})
+		
 		$('.reply-btn').click(function(){
 			var rp_bd_num = '${board.num}'; // 문법에 맞게 하기 위해 앞뒤로 따옴표를 붙여주는 것
 			var rp_me_id = '${user.id}';
@@ -147,7 +167,7 @@
 					'rp_me_id': rp_me_id,
 					'rp_content': rp_content
 			}
-			var contextPath = '<%=request.getContextPath()%>';
+			
 			replyService.insert(contextPath, data);
 		})
 	})
@@ -157,6 +177,11 @@
 		}
 		alert(msg);
 	}
+	
+	$(function(){
+	
+		
+	})
 </script>
 </body>
 </html>
