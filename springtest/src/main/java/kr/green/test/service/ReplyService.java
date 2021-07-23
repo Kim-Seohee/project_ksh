@@ -4,6 +4,6 @@ import kr.green.test.vo.ReplyVO;
 
 public interface ReplyService {
 
-	void insertReply(ReplyVO reply);
+	int insertReply(ReplyVO reply);
 
 }

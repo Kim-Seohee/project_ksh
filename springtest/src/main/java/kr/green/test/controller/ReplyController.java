@@ -8,7 +8,7 @@ import kr.green.test.service.ReplyService;
 import kr.green.test.vo.ReplyVO;
 import lombok.AllArgsConstructor;
 
-@RestController // 모든 댓글은 ajax로 처리
+@RestController // 모든 댓글은 ajax로 처리(실제 데이터를 리턴)
 @AllArgsConstructor
 public class ReplyController {
 	
@@ -16,8 +16,6 @@ public class ReplyController {
 	
 	@PostMapping(value="reply/ins")
 	public String replyInsPost(@RequestBody ReplyVO reply) {
-		System.out.println(reply);
-		replyService.insertReply(reply);
-		return "ok";
+		return replyService.insertReply(reply) == 0 ? "FAIL" : "OK";
 	}
 }

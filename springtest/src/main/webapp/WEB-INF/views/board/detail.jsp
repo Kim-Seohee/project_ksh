@@ -6,6 +6,7 @@
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/reply.js"></script> <!-- js파일 연결 -->
 	<style>
 	 	.recommend-btn{
 	 		font-size: 30px;	
@@ -134,7 +135,7 @@
 			})
 		})
 		$('.reply-btn').click(function(){
-			var rp_bd_num = '${board.num}';
+			var rp_bd_num = '${board.num}'; // 문법에 맞게 하기 위해 앞뒤로 따옴표를 붙여주는 것
 			var rp_me_id = '${user.id}';
 			var rp_content = $('.reply-input').val();
 			if(rp_me_id == ''){
@@ -142,23 +143,12 @@
 				return;
 			}
 			var data = {
-					'rp_bd_num': rp_bd_num,
+					'rp_bd_num': rp_bd_num, // 속성명: 변수
 					'rp_me_id': rp_me_id,
 					'rp_content': rp_content
 			}
-			$.ajax({
-				type: 'post',
-				url: '<%=request.getContextPath()%>/reply/ins',
-				data: JSON.stringify(data),
-				contentType: "application/json; charset=utf-8",
-				success: function(res, status, xhr){
-					if(res == 'ok'){
-						alert('댓글 등록이 완료되었습니다.');
-					}
-				},
-				error: function(xhr, status, error){
-				}
-			})
+			var contextPath = '<%=request.getContextPath()%>';
+			replyService.insert(contextPath, data);
 		})
 	})
 	function printMsg(msg){
