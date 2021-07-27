@@ -29,6 +29,8 @@
 		class="kr.green.spring.interceptor.MemberInterceptor"></beans:bean>
 	<beans:bean id="nonMemberInterceptor" 
 		class="kr.green.spring.interceptor.NonMemberInterceptor"></beans:bean>
+	<beans:bean id="autoLoginInterceptor" 
+		class="kr.green.spring.interceptor.AutoLoginInterceptor"></beans:bean>	
 	
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 	   <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
@@ -72,6 +74,10 @@
 	        <mapping path="/signin"/> <!-- 비회원만 접근할 수 있는 페이지들 -->
 	        <mapping path="/signup"/>
 	        <beans:ref bean="nonMemberInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/**/"/> <!-- 모든 경로 -->
+	        <beans:ref bean="autoLoginInterceptor"/>
 	    </interceptor>
 	</interceptors>
 	
