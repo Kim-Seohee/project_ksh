@@ -1,12 +1,21 @@
 package kr.green.test.controller;
 
+import java.util.Date;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import kr.green.test.service.MemberService;
 import kr.green.test.vo.MemberVO;
@@ -32,6 +41,7 @@ public class MemberController {
 	// @RequestMapping (...method=RequestMethod.POST와 동일
 	@PostMapping(value="/member/signin")
 	public ModelAndView signinPost(ModelAndView mv, MemberVO user) {
+//		System.out.println(user);
 		MemberVO dbUser = memberService.signin(user);
 		if(dbUser != null) {
 			mv.setViewName("redirect:/");			
@@ -39,6 +49,7 @@ public class MemberController {
 			mv.setViewName("redirect:/member/signin");
 		}
 		mv.addObject("user", dbUser);
+//		System.out.println(dbUser);
 		return mv;
 	}
 	
@@ -85,8 +96,19 @@ public class MemberController {
 	}
 	
 	@GetMapping(value="/member/signout")
-	public ModelAndView signoutGet(ModelAndView mv, HttpServletRequest request) {
-		request.getSession().removeAttribute("user");
+	public ModelAndView signoutGet(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		if(user != null) {
+			request.getSession().removeAttribute("user");
+			request.getSession().invalidate();
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			if(loginCookie != null) {
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+				memberService.keepLogin(user.getId(), "none", new Date());
+			}
+		}
 		mv.setViewName("redirect:/");
 		return mv;
 	}
