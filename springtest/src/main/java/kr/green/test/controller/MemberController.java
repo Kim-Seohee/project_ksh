@@ -1,12 +1,16 @@
 package kr.green.test.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +28,8 @@ import kr.green.test.vo.MemberVO;
 public class MemberController {
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@RequestMapping(value="/test")
 	public String test(Model model) {
@@ -82,15 +88,15 @@ public class MemberController {
 	@PostMapping(value="/member/mypage")
 	public ModelAndView mypagePost(ModelAndView mv, MemberVO user, HttpServletRequest request) {
 		// user: 화면에서 보낸 회원 정보, 정상적이라면 바로 수정해도 되지만 개발자 도구를 이용하여 잘못된 정보를 보낼 수 있기 때문에 바로 수정하면 안된다.
+		//request에 있는 세션 안에 있는 로그인한 회원 정보를 가져옴
 		MemberVO sessionUser = memberService.getMember(request);
-		MemberVO updatedUser = memberService.updateMember(user, sessionUser);
-		// sessionUser는 현재 로그인된 회원 정보
-		// updatedUser는 업데이트된 회원 정보로 user의 아이디와 sessionUser의 아이디가 일치하지 않으면 null, 일치하면 업데이트된 회원 정보 반환
-		
-		if(updatedUser != null) {
-			request.getSession().setAttribute("user", updatedUser);
+		//세션에 로그인한 회원 정보가 있고, 세션에 있는 아이디와 수정할 아이디가 같으면 회원 정보 수정함
+		if(sessionUser != null && sessionUser.getId().equals(user.getId())) {
+			MemberVO updatedUser = memberService.updateMember(user);
+			if(updatedUser != null) {
+				request.getSession().setAttribute("user", updatedUser);
+			}
 		}
-		
 		mv.setViewName("redirect:/member/mypage");
 		return mv;
 	}
@@ -119,5 +125,95 @@ public class MemberController {
 		MemberVO user = memberService.getMember(id);
 		String res = user != null? "IMPOSSIBLE" : "POSSIBLE";  
 		return res;
+	}
+	
+	@GetMapping("/find/pw")
+	public ModelAndView findPwGet(ModelAndView mv) {
+		mv.setViewName("/template/main/findpw");
+		return mv;
+	}
+	@ResponseBody // ajax
+	@GetMapping("/find/pw/{id}")
+	public String findPwIdGet(@PathVariable("id") String id) {
+		MemberVO user = memberService.getMember(id);
+		if(user == null)
+			return "FAIL";
+		try {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper messageHelper 
+	            = new MimeMessageHelper(message, true, "UTF-8");
+	        //임시 비밀번호 발급
+	        String newPw = newPw();
+	        //새 비밀번호를 DB에 저장
+	        user.setPw(newPw);
+	        memberService.updateMember(user);
+	        
+	        messageHelper.setFrom("suhee9305@gmail.com");  // 보내는사람 생략하거나 하면 정상작동을 안함
+	        messageHelper.setTo(user.getEmail());     // 받는사람 이메일
+	        messageHelper.setSubject("새 비밀번호를 발급합니다."); // 메일제목은 생략이 가능하다
+	        messageHelper.setText("","발급된 새 비밀번호는 <h3>" + newPw + "</h3>입니다.");  // 메일 내용
+
+	        mailSender.send(message);
+	        return "SUCCESS";
+	    } catch(Exception e){
+	        System.out.println(e);
+	    }
+		return "FAIL";
+	}
+	@GetMapping("/find/id")
+	public ModelAndView findIdGet(ModelAndView mv) {
+		mv.setViewName("/template/main/findid");
+		return mv;
+	}
+	@ResponseBody
+	@PostMapping("/find/id")
+	public String findIdPost(String email) {
+		
+		ArrayList<MemberVO> userList = memberService.getMemberByEmail(email);
+		
+		if(userList == null || userList.size() == 0)
+			return "FAIL";
+		try {
+			ArrayList<String> idList = new ArrayList<String>();
+			for(MemberVO user : userList) {
+				idList.add(user.getId());
+			}
+			System.out.println(idList);
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper messageHelper 
+	            = new MimeMessageHelper(message, true, "UTF-8");
+	        
+	        messageHelper.setFrom("stajun@gmail.com");  // 보내는사람 생략하거나 하면 정상작동을 안함
+	        messageHelper.setTo(email);     // 받는사람 이메일
+	        messageHelper.setSubject("가입된 아이디입니다."); // 메일제목은 생략이 가능하다
+	        messageHelper.setText("","가입된 아이디는 <b>" + idList.toString().replaceAll("[\\[\\]]","") + "</b>입니다.");  // 메일 내용
+
+	        mailSender.send(message);
+	        return "SUCCESS";
+	    } catch(Exception e){
+	        System.out.println(e);
+	    }
+		return "FAIL";
+	}
+	//8자리의 숫자 or 영어대소문자로 된 비밀번호
+	private String newPw() {
+		//랜덤숫자 : 0~9 => 문자열 : 0~9
+		//랜덤숫자 : 10~35 => 문자열 : a~z
+		//랜덤숫자 : 36~61 => 문자열 : A~Z
+		//12 =>c
+		String pw="";
+		int max = 61, min = 0;
+		for(int i=0; i<8; i++) {
+			int r = (int)(Math.random()*(max-min+1)) + min;
+			//int r = (int)(Math.random()*62);
+			if(r <= 9) {
+				pw += r;
+			}else if(r<=35) {
+				pw += (char)('a'+(r-10));
+			}else {
+				pw += (char)('A'+(r-36));
+			}
+		}
+		return pw;
 	}
 }

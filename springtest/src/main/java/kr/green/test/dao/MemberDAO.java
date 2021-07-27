@@ -1,5 +1,6 @@
 package kr.green.test.dao;
  
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,4 +19,6 @@ public interface MemberDAO {
 	public void keepLogin(@Param("id")String id, @Param("session_id")String session_id, @Param("session_limit")Date session_limit);
 
 	public MemberVO getMemberBySessionId(@Param("session_id")String session_id);
+
+	public ArrayList<MemberVO> gemMemberByEmail(@Param("email")String email);
 }

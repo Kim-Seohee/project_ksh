@@ -1,5 +1,6 @@
 package kr.green.test.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,19 +64,32 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public MemberVO updateMember(MemberVO user, MemberVO sessionUser) {
-		if(user == null || sessionUser == null || user.getId() == null || !user.getId().equals(sessionUser.getId())) {
+	public MemberVO updateMember(MemberVO user) {
+		//user : 화면에서 입력한 회원 정보
+		//dbUser : DB에서 가져온 회원 정보
+		//다오에게 아이디를 주면서 기존 회원 정보를 가져오라고 시킴
+		if(user == null) {
 			return null;
 		}
-		if(user.getPw() != null && user.getPw().trim().length() != 0) {
-			String encodePw = passwordEncoder.encode(user.getPw());
-			sessionUser.setPw(encodePw);
+		MemberVO dbUser = memberDao.getMember(user.getId());
+		//일치하는 회원 정보가 없으면 0을 반환
+		if(dbUser == null) {
+			return null;
 		}
-		sessionUser.setEmail(user.getEmail());
-		sessionUser.setGender(user.getGender());
-		sessionUser.setName(user.getName());
-		memberDao.updateMember(sessionUser);
-		return sessionUser;
+		//기존 회원 정보 중 성별, 이메일을 수정할 회원 정보의 성별, 이메일로 변경
+		dbUser.setGender(user.getGender());
+		dbUser.setEmail(user.getEmail());
+		
+		//수정할 회원 정보에 비밀 번호가 있으면, 기존 회원 정보의 비밀번호를 변경
+		if(user.getPw() != null && !user.getPw().equals("")) {
+			String encodePw = passwordEncoder.encode(user.getPw());
+			dbUser.setPw(encodePw);
+		}
+		
+		//다오에게 수정할 회원 정보를 주면서 변경하라고 시킴
+		if(memberDao.updateMember(dbUser) == 0)
+			return null;
+		return dbUser;
 	}
 	
 	@Override
@@ -102,5 +116,12 @@ public class MemberServiceImp implements MemberService {
 		if(session_id == null)
 			return null;
 		return memberDao.getMemberBySessionId(session_id);
+	}
+
+	@Override
+	public ArrayList<MemberVO> getMemberByEmail(String email) {
+		if(email == null)
+			return null;
+		return memberDao.gemMemberByEmail(email);
 	}
 }
