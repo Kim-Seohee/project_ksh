@@ -6,24 +6,29 @@
 <head>
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<!-- Brand/logo -->
-		<a class="navbar-brand" href="#">
-			<img src="bird.jpg" alt="logo" style="width:40px;">
-		</a>
-		
-		<!-- Links -->
-		<ul class="navbar-nav">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<!-- Brand/logo -->
+	<a class="navbar-brand" href="#">
+		<!-- <img src="bird.jpg" alt="logo" style="width:40px;"> -->
+	</a>
+	
+	<!-- Links -->
+	<ul class="navbar-nav">
+		<c:if test="${user == null }">
 			<li class="nav-item">
 				<a class="nav-link" href="<%=request.getContextPath()%>/member/signup">회원가입</a>
 			</li>
 			<li class="nav-item">
-		  		<a class="nav-link" href="<%=request.getContextPath()%>/member/signin">로그인</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/member/signin">로그인</a>
 			</li>
+		</c:if>
+		<c:if test="${user != null}">
 			<li class="nav-item">
-		  		<a class="nav-link" href="#">Link 3</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/member/signout">로그아웃</a>
 			</li>
-		</ul>
-	</nav>
+		</c:if>
+	</ul>
+</nav>
+
 </body>
 </html>
