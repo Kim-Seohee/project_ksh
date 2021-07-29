@@ -20,4 +20,24 @@
 	<select id="selectUserBySession" resultType="kr.green.study.vo.MemberVO">
 		select * from member where session_id = #{session_id} and session_limit > now()
 	</select>
+	<select id="selectUserList" resultType="kr.green.study.vo.MemberVO">
+		select * from member
+			<if test="authority == 'ADMIN'">
+				where authority = 'USER'
+			</if>
+			<if test="authority == 'SUPER ADMIN'">
+				where authority != 'SUPER ADMIN'
+			</if>
+			order by id asc
+	</select>
+	<update id="updateUser">
+		update member set
+			pw = #{pw},
+			email = #{email},
+			gender = #{gender},
+			name = #{name},
+			authority = #{authority}
+		where id = #{id}
+			
+	</update>
 </mapper>

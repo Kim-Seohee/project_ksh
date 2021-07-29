@@ -1,5 +1,6 @@
 package kr.green.study.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,5 +23,9 @@ public interface MemberService {
 	MemberVO getMemberByCookie(String value);
 	
 	MemberVO getMemberByRequest(HttpServletRequest request);
+
+	ArrayList<MemberVO> getMemberList(MemberVO user);
+
+	boolean updateAuthority(MemberVO user, MemberVO loginUser);
 
 }
