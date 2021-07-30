@@ -4,7 +4,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>일반 게시판</title>
+
 </head>
 <body>
 
@@ -26,7 +26,7 @@
 				<tr>
 					<td>${board.num}</td>
 					<td>
-						<a href="#">
+						<a href="<%=request.getContextPath()%>/board/detail?num=${board.num}">
 							<c:if test="${board.groupOrd != 0}"> <i class="fas fa-reply-all"></i> </c:if>
 							${board.title}
 						</a>
@@ -38,6 +38,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<a href="<%=request.getContextPath()%>/board/register">
+		<button class="btn btn-outline-info mb-2">글쓰기</button>
+	</a>
 </div>
 
 </body>

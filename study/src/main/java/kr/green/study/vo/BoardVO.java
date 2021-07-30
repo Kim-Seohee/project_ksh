@@ -21,6 +21,7 @@ public class BoardVO {
 	private int down;
 	private String type;
 	private int groupOrd;
+	private int oriNo;
 	public String getRegisteredDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(registered);
