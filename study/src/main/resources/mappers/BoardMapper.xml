@@ -4,23 +4,73 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.study.dao.BoardDAO">
 	<select id="selectBoardList" resultType="kr.green.study.vo.BoardVO">
-		select * from board
+		select * from board 
+			where valid = 'I' and type = #{type}
 			order by oriNo desc, groupOrd asc
+			limit #{pageStart}, #{perPageNum}
 	</select>
 	<select id="selectBoard" resultType="kr.green.study.vo.BoardVO">
 		select * from board
-			where num = #{num}
+			where num = #{num} and valid = 'I'
 	</select>
-	<insert id="insertBoard">
-		insert into
-			board(title, contents, writer, oriNo, groupOrd)
-			select #{board.title}, #{board.contents}, #{board.writer},
-			<if test="board.oriNo != 0">	
-				#{board.oriNo}, max(oriNo) + 1 from board where oriNo = #{board.oriNo}
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.num" parameterType="kr.green.study.vo.BoardVO">
+		insert into 
+			board(title, contents, writer, type, pw, oriNo, groupOrd)
+			select #{board.title}, #{board.contents}, #{board.writer}, #{board.type}, #{board.pw}, 
+			<if test="board.oriNo != 0">
+				#{board.oriNo}, ifnull(max(groupOrd)+1,1) from board where oriNo = #{board.oriNo}
 			</if>
-			<if test="board.oriNo == 0">	
-				max(num)+1, 0 from board
+			<if test="board.oriNo == 0">
+				ifnull(max(num)+1,1), 0 from board
 			</if>
-			
 	</insert>
+	<update id="updateBoard">
+		update board set
+			title = #{title},
+			contents = #{contents}
+			where num = #{num}
+	</update>
+	<update id="deleteBoard">
+		update board set
+			valid = 'D'
+			where num = #{num}
+	</update>
+	<update id="deleteReplyBoard">
+		update board set
+			valid = 'D'
+			where oriNo = #{num}
+	</update>
+	<insert id="insertFile">
+		insert into file(board, name, ori_name, thumbnail)
+			values(#{board}, #{name}, #{ori_name}, #{thumbnail})
+	</insert>
+	<update id="updateViews">
+		update board set
+			views = views+1
+			where num = #{num}
+	</update>
+	<select id="selectFileList" resultType="kr.green.study.vo.FileVO">
+		select * from file where state = 'I' and board = #{num}
+			order by thumbnail desc
+	</select>
+	<update id="deleteFile">
+		update file set
+			state = 'D'
+			where num = #{num}
+	</update>
+	<select id="selectFileNumList" resultType="int">
+		select num from file where state = 'I' and board = #{num}
+			order by thumbnail desc
+	</select>
+	<select id="selectFile" resultType="kr.green.study.vo.FileVO">
+		select * from file where num = #{tmp} and state = 'I'
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from board 
+			where valid = 'I' and type = #{type}
+	</select>
+	<select id="selectThumnail" resultType="kr.green.study.vo.FileVO">
+		select * from file 
+			where board = #{num} and state = 'I' and thumbnail = 'Y'
+	</select>
 </mapper>

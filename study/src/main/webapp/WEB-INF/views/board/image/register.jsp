@@ -19,9 +19,18 @@
 			<textarea id="summernote" class="form-control" name="contents" rows="10">${board.contents }</textarea>
 		</div>
 		<div class="form-group">
+			<label>대표이미지</label>
+			<input type="file" name="mainImage" class="form-control">
+		</div>
+		<div class="form-group">
+			<label>첨부파일</label>
 			<input type="file" name="fileList" class="form-control">
 			<input type="file" name="fileList" class="form-control">
 			<input type="file" name="fileList" class="form-control">
+		</div>
+		<div class="form-group">
+			<label>비밀번호</label>
+			<input type="password" class="form-control" name="pw">
 		</div>
 		<button class="btn btn-outline-success">등록</button>
 		<a href="<%=request.getContextPath()%>/board${type}/list"><button type="button" class="btn btn-outline-danger">목록</button></a>
@@ -29,6 +38,17 @@
 	<script type="text/javascript">
 	$(function(){
 		$('form').submit(function(){
+			//제목 입력했는지 체크, 내용이 입력됐는지 체크해야 하는데 생략
+			//대표 이미지가 선택 됐는지 체크
+			if($('[name=mainImage]').val() == ''){
+				alert('대표 이미지를 선택하세요.')
+				return false;
+			}
+			//비밀번호가 입력됐는지 체크
+			if($('[name=pw]').val() == ''){
+				alert('비밀번호를 입력해주세요.')
+				return false;
+			}
 			return true;
 		})
 		$('#summernote').summernote({

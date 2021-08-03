@@ -3,20 +3,27 @@ package kr.green.study.pagination;
 import lombok.Data;
 
 @Data
-public class Criteria { 
+public class Criteria {
 
-	private int page;  
-	private int perPageNum; 
-	private String sortType; //id, authority로 정렬 
-	private String sort; //desc, asc
-
+	private int page; 
+	private int perPageNum;
+	private String type;//검색 타입이 아니라 게시글 타입
+	private String sortType;//id, authority로 정렬
+	private String sort;//desc, asc
 	public Criteria() {
 		this.page = 1;
 		this.perPageNum = 10;
 		this.sortType = "id";
 		this.sort = "asc";
+		this.type = "NORMAL";
 	}
-
+	public Criteria(int page, int perPageNum) {
+		this(); // 기본생성자 호출
+		this.page = page;
+		this.perPageNum = perPageNum;
+		
+	}
+	
 	public int getPageStart() {
 		return (this.page -1) * perPageNum;
 	}

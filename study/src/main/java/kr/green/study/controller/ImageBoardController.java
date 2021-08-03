@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,52 +25,64 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/board")
-public class BoardController {
+@RequestMapping("/board/image")
+public class ImageBoardController {
 	
 	private BoardService boardService;
 	private MemberService memberService;
 	
 	@GetMapping("/list")
 	public ModelAndView listGet(ModelAndView mv, Criteria cri) {
+		cri.setType("IMAGE");
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		int totalCount = boardService.getTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 10, cri);
+		boardService.getThumbnail(list);
 		mv.addObject("pm", pm);
 		mv.addObject("list",list);
-		mv.setViewName("/template/board/list");
+		mv.addObject("type","/image");
+		mv.setViewName("/template/board/image/list");
 		return mv;
 	}
 	@GetMapping("/detail")
 	public ModelAndView detailGet(ModelAndView mv, Integer num) {
-		boardService.updateViews(num);
-		BoardVO board = boardService.getBoard(num);
-		
-		ArrayList<FileVO> fList = boardService.getFileList(num);
-		
-		mv.addObject("board", board);
-		mv.addObject("fList", fList);
-		mv.setViewName("/template/board/detail");
+		mv.setViewName("redirect:/board/image/list");
+		return mv;
+	}
+	@PostMapping("/detail")
+	public ModelAndView detailPost(ModelAndView mv, BoardVO tmpBoard) {
+		if(boardService.checkBoardPw(tmpBoard)) {
+			boardService.updateViews(tmpBoard.getNum());
+			BoardVO board = boardService.getBoard(tmpBoard.getNum());
+			
+			ArrayList<FileVO> fList = boardService.getFileList(tmpBoard.getNum());
+			mv.addObject("type","/image");
+			mv.addObject("board", board);
+			mv.addObject("fList", fList);
+			mv.setViewName("/template/board/image/detail");
+		}else {
+			mv.setViewName("redirect:/board/image/list");
+		}
 		return mv;
 	}
 	@GetMapping("/register")
 	public ModelAndView registerGet(ModelAndView mv) {
-		mv.setViewName("/template/board/register");
+		mv.setViewName("/template/board/image/register");
 		return mv;
 	}
 	@PostMapping("/register")
 	public ModelAndView registerPost(ModelAndView mv,BoardVO board, 
-			MultipartFile [] fileList, HttpServletRequest request ) throws Exception {
+			MultipartFile [] fileList, HttpServletRequest request, MultipartFile mainImage ) throws Exception {
 		MemberVO user = memberService.getMemberByRequest(request);
-		board.setType("NORMAL");
-		boardService.insertBoard(board, fileList, user);
-		mv.setViewName("redirect:/board/list");
+		board.setType("IMAGE");
+		boardService.insertBoard(board, fileList, user, mainImage);
+		mv.setViewName("redirect:/board/image/list");
 		return mv;
 	}
 	@GetMapping("/reply/register")
 	public ModelAndView replyRegisterGet(ModelAndView mv,Integer oriNo) {
 		mv.addObject("oriNo",oriNo);
-		mv.setViewName("/template/board/replyregister");
+		mv.setViewName("/template/board/image/replyregister");
 		return mv;
 	}
 	@PostMapping("/reply/register")
@@ -77,7 +90,7 @@ public class BoardController {
 		MemberVO user = memberService.getMemberByRequest(request);
 		board.setType("NORMAL");
 		boardService.insertReplyBoard(board, user);
-		mv.setViewName("redirect:/board/list");
+		mv.setViewName("redirect:/board/image/list");
 		return mv;
 	}
 	@GetMapping("/modify")
@@ -86,28 +99,31 @@ public class BoardController {
 		ArrayList<FileVO> fList = boardService.getFileList(num);
 		mv.addObject("board", board);
 		mv.addObject("fList",fList);
-		mv.setViewName("/template/board/modify");
+		mv.setViewName("/template/board/image/modify");
 		return mv;
 	}
 	@PostMapping("/modify")
-	public ModelAndView modifyPost(ModelAndView mv,BoardVO board, HttpServletRequest request,
-			MultipartFile[] fileList, Integer [] fileNumList) throws Exception {
+	public ModelAndView modifyPost(ModelAndView mv,BoardVO board, 
+			HttpServletRequest request,
+			MultipartFile[] fileList, Integer [] fileNumList,
+			MultipartFile mainImage, Integer thumbnailNo) throws Exception {
 		MemberVO user = memberService.getMemberByRequest(request);
-		boardService.updateBoard(board,user,fileList, fileNumList);
+		boardService.updateBoard(board,user,fileList, fileNumList, mainImage, thumbnailNo);
 		mv.addObject("num", board.getNum());
-		mv.setViewName("redirect:/board/detail");
+		mv.setViewName("redirect:/board/image/detail");
 		return mv;
 	}
 	@GetMapping("/delete")
 	public ModelAndView deleteGet(ModelAndView mv,Integer num,HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
 		boardService.deleteBoard(num, user);
-		mv.setViewName("redirect:/board/list");
+		mv.setViewName("redirect:/board/image/list");
 		return mv;
 	}
 	@ResponseBody
-	@GetMapping("/download")
-	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
-	    return boardService.downloadFile(fileName);
+	@PostMapping("/check")
+	public String checkPost(@RequestBody BoardVO board) {
+		System.out.println(board);
+		return ""+boardService.checkBoardPw(board);
 	}
 }

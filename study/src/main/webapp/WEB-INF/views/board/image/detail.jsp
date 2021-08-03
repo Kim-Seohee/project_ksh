@@ -4,15 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/reply.js"></script>
-<style>
-.recommend-btn{
-	font-size: 30px;
-}
-.fa-thumbs-down{
-	transform : rotateY(180deg);
-}
-</style>
+	<title>게시판</title>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/reply.js"></script>
+	<style>
+	.recommend-btn{
+		font-size: 30px;
+	}
+	.fa-thumbs-down{
+		transform : rotateY(180deg);
+	}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -39,9 +40,15 @@
 			<div class="form-control" style="min-height:400px;">${board.contents }</div>
 		</div>
 		<div class="form-group">
+			<label>메인 이미지</label>
+			<img width="auto" height="300" src="<%=request.getContextPath()%>/resources/img${fList.get(0).name}">
+		</div>
+		<div class="form-group">
 			<label>첨부파일</label>
 			<c:forEach items="${fList}" var="file">
+				<c:if test="${file.thumbnail != 'Y'}">
 				<a class="form-control" href="<%=request.getContextPath()%>/board/download?fileName=${file.name}">${file.ori_name}</a>
+				</c:if>
 			</c:forEach>
 		</div>
 		<hr>
@@ -70,39 +77,5 @@
 			</a>
 		</c:if>
 	</div>
-<script type="text/javascript">
-var rp_bd_num = '${board.num}';
-var rp_me_id = '${user.id}';
-var contextPath = '<%=request.getContextPath()%>';
-$(function(){
-	$('.reply-btn').click(function(){
-		if(rp_me_id == ''){
-			alert('로그인을 하세요.');
-			return;
-		}
-		var rp_content = $('.reply-input').val();
-		var data = {
-				rp_bd_num:rp_bd_num, rp_content:rp_content
-		}
-		replyService.add(contextPath, data, addOk, listOk);
-	})
-	
-	replyService.list(contextPath, {page : 1, rp_bd_num: rp_bd_num}, listOk);
-})
-function addOk(res){
-	if(res == 'OK')
-		alert('댓글이 등록되었습니다.');
-	else
-		alert('댓글 등록에 실패했습니다.');
-}
-function listOk(res){
-	var list = res.list;
-	var str = '';
-	for(i = 0; i<list.length; i++){
-		str += list[i].rp_me_id + ' : ' + list[i].rp_content + '<br>';
-	}
-	$('.reply-list').html(str);
-}
-</script>
 </body>
 </html>
