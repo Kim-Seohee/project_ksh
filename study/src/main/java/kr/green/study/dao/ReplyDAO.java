@@ -15,4 +15,10 @@ public interface ReplyDAO {
 
 	int selectTotalCount(int rp_bd_num);
 
+	ReplyVO selectReply(int rp_num);
+
+	void updateReply(ReplyVO reply);
+
+	void deleteReply(int rp_num);
+
 }
